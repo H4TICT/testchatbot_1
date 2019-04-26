@@ -8,7 +8,6 @@ var express = require('express');
 var request = require('request');
 var router = express();
 
-const token = 'EAAEtSZC8DOskBAG4EaEaPJb2LD299exZCthNIP0l6In1rsvySksNzMRBPX9wXUf2yYjcv6GZCPZCAdwxNEzYNwhOZAnkysq8YZAYRXKO3JqfKyPQT1fMkkvXpjx62yTQG6FGaEl29fMjKG8ZCd9bFyoyDbTfJqWD3ni2sYppZAB3NwZDZD';
 var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -56,7 +55,7 @@ function sendMessage(senderId, message) {
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {
-      access_token: "token",
+      access_token: "EAAEtSZC8DOskBAB3rm5uEjZBAIl6is00DfcpQYQjg2npCMm2NUUUw3PdV8yz8fTeFIhRtZAZCWRKAuzr8hCJ8IwHa4Axm9GB9J3HdVUzZCSM3hNa2yBXBSZBZAWtTM7HeLV3IcxYsZCQZAERR2ZC7QJTDWgh6xZC9JRcc3JRpe8ZAKe3iwZDZD",
     },
     method: 'POST',
     json: {
