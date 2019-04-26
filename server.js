@@ -1,6 +1,3 @@
-// # SimpleServer
-// A simple chat bot server
-
 var logger = require('morgan');
 var http = require('http');
 var bodyParser = require('body-parser');
@@ -40,7 +37,7 @@ app.post('/webhook', function(req, res) {
         // If user send text
         if (message.message.text) {
           var text = message.message.text;
-          console.log(text); // In tin nhắn người dùng
+          console.log(text); //text: message from user
           sendMessage(senderId, "Tui là bot đây: " + text);
         }
       }
@@ -55,7 +52,7 @@ function sendMessage(senderId, message) {
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {
-      access_token: "EAAEtSZC8DOskBAB3rm5uEjZBAIl6is00DfcpQYQjg2npCMm2NUUUw3PdV8yz8fTeFIhRtZAZCWRKAuzr8hCJ8IwHa4Axm9GB9J3HdVUzZCSM3hNa2yBXBSZBZAWtTM7HeLV3IcxYsZCQZAERR2ZC7QJTDWgh6xZC9JRcc3JRpe8ZAKe3iwZDZD",
+      access_token: "EAAEtSZC8DOskBAD0OT3fCaf7JYpqp85YpeGMCnKkcnM7zEPO0ZAkUEs4XBeyvFV4G9yaMQ7vqFxh2d8uB5fcYcQoysZBTfWIdXppp4HImN7bmgi5YB3ex5nKuaWSVv5WIWZAhwmZA0SkcZADn3QH9qxfpLT0ZBmqZAAAeV1R41CqPAZDZD",
     },
     method: 'POST',
     json: {
