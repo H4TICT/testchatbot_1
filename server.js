@@ -38,7 +38,7 @@ app.post('/webhook', function(req, res) {
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendMessage(senderId, "Tui là bot đây: " + text);
+          sendMessage(senderId, "Hello, I'm bot: " + text);
         }
       }
     }
@@ -52,7 +52,7 @@ function sendMessage(senderId, message) {
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {
-      access_token: "EAAEtSZC8DOskBAD0OT3fCaf7JYpqp85YpeGMCnKkcnM7zEPO0ZAkUEs4XBeyvFV4G9yaMQ7vqFxh2d8uB5fcYcQoysZBTfWIdXppp4HImN7bmgi5YB3ex5nKuaWSVv5WIWZAhwmZA0SkcZADn3QH9qxfpLT0ZBmqZAAAeV1R41CqPAZDZD",
+      access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
     },
     method: 'POST',
     json: {
