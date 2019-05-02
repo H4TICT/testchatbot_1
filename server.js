@@ -38,7 +38,7 @@ app.post('/webhook', function(req, res) {
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendMessage(senderId, "Hello, I'm bot: " + text);
+          sendMessage(senderId, "Hello, I'm bot. You typed: " + text);
         }
       }
     }
