@@ -101,8 +101,9 @@ app.post('/webhook', (req, res) => {
 const handleMessage = (sender_psid, received_message) => {
   let response;
   if (received_message.text) {
-
+    response = askTemplate();
   }
+  callSendAPI(sender_psid, response);
 };
 
 const handlePostback = (sender_psid, received_postback) => {
@@ -147,37 +148,30 @@ const askTemplate = (text) => {
   }
 };
 
-const callSendAPI = (sender_psid, response, cb = null) => {
-  // let request_body = {
-  //   "recipient": {
-  //     "id": sender_psid
-  //   },
-  //   "message": response
-  // };
+function callSendAPI(sender_psid, response, cb = null) {
+    // Construct the message body
+    let request_body = {
+        "recipient": {
+            "id": sender_psid
+        },
+        "message": response
+    };
 
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {
-      access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
-    },
-    method: 'POST',
-    json: {
-      recipient: {
-        id: sender_psid
-      },
-      message: {
-        text: response 
-      },
-    }
-  }, (err, res, body) => {
-    if (!err) {
-        if(cb){
-          cb();
+    // Send the HTTP request to the Messenger Platform
+    request({
+        "uri": "https://graph.facebook.com/v2.6/me/messages",
+        "qs": { "access_token": "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD", },
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+        if (!err) {
+            if(cb){
+                cb();
+            }
+        } else {
+            console.error("Unable to send message:" + err);
         }
-    } else {
-        console.error("Unable to send message:" + err);
-    }
-  });
+    });
 }
 //send info to RestAPI to answer
 // function sendMessage(senderId, message) {
