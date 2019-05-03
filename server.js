@@ -18,35 +18,6 @@ app.get('/', (req, res) => {
   res.send("Home page. Server running okay.");
 });
 
-
-// app.get('/webhook', function(req, res) {
-//   if (req.query['hub.verify_token'] === 'randomToken') {
-//     res.send(req.query['hub.challenge']);
-//   }
-//   res.send('Error, wrong validation token');
-// });
-
-
-//user send message to bot
-app.post('/webhook', function(req, res) {
-  var entries = req.body.entry;
-  for (var entry of entries) {
-    var messaging = entry.messaging;
-    for (var message of messaging) {
-      var senderId = message.sender.id;
-      if (message.message) {
-        // If user send text
-        if (message.message.text) {
-          var text = message.message.text;
-          console.log(text); //text: message from user
-          sendMessage(sender_psid, "Hello, I'm Free Chat. Your topic is: " + text);
-        }
-      }
-    }
-  }
-  res.status(200).send("OK");
-});
-
 app.get('/webhook', (req, res) => {
   let VERIFY_TOKEN = "randomToken";
 
@@ -68,33 +39,26 @@ app.get('/webhook', (req, res) => {
 });
 
 app.post('/webhook', (req, res) => {
- 
   let body = req.body;
-
   if (body.object === 'page') {
+    body.entry.forEach(function(entry) {
+      let webhook_event = entry.messaging[0];
+      console.log(webhook_event);
 
-      body.entry.forEach(function(entry) {
+      let sender_psid = webhook_event.sender.id;
+      console.log('Sender PSID: ' + sender_psid);
 
-          let webhook_event = entry.messaging[0];
-          console.log(webhook_event);
-
-          let sender_psid = webhook_event.sender.id;
-          console.log('Sender PSID: ' + sender_psid);
-
-          if (webhook_event.message) {
-            handleMessage(sender_psid, webhook_event.message);
-          } else if (webhook_event.postback) {
-            handlePostback(sender_psid, webhook_event.postback);
-          }
-      });
-
-      res.status(200).send('EVENT_RECEIVED');
+      if (webhook_event.message) {
+        handleMessage(sender_psid, webhook_event.message);
+      } else if (webhook_event.postback) {
+        handlePostback(sender_psid, webhook_event.postback);
+      }
+    });
+    res.status(200).send('EVENT_RECEIVED');
   } else {
       res.sendStatus(404);
   }
 });
-
-
 
 //handles messages events
 const handleMessage = (sender_psid, received_message) => {
@@ -114,9 +78,6 @@ const handlePostback = (sender_psid, received_postback) => {
     callSendAPI(sender_psid, response);
   }
 };
-
-
-
 
 const askTemplate = (text) => {
   return {
@@ -153,9 +114,7 @@ function callSendAPI(sender_psid, response, cb = null) {
         "recipient": {
             "id": sender_psid
         },
-        "message": {
-          response,
-          text: message}
+        "message": response
     };
 
     // Send the HTTP request to the Messenger Platform
