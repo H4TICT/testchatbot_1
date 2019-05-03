@@ -36,15 +36,14 @@ app.post('/webhook', function(req, res) {
       var senderId = message.sender.id;
       if (message.message) {
         // If user send text
-        if (message.message.response) {
-          var response = message.message.response;
-          console.log(response); //text: message from user
-          sendMessage(senderId, "Hello, I'm Free Chat. Your topic is: " + response);
+        if (message.message.text) {
+          var text = message.message.text;
+          console.log(text); //text: message from user
+          sendMessage(sender_psid, "Hello, I'm Free Chat. Your topic is: " + text);
         }
       }
     }
   }
-
   res.status(200).send("OK");
 });
 
@@ -154,7 +153,9 @@ function callSendAPI(sender_psid, response, cb = null) {
         "recipient": {
             "id": sender_psid
         },
-        "message": response
+        "message": {
+          response,
+          text: message}
     };
 
     // Send the HTTP request to the Messenger Platform
