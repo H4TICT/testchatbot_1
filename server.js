@@ -28,25 +28,25 @@ app.get('/', (req, res) => {
 
 
 //user send message to bot
-// app.post('/webhook', function(req, res) {
-//   var entries = req.body.entry;
-//   for (var entry of entries) {
-//     var messaging = entry.messaging;
-//     for (var message of messaging) {
-//       var senderId = message.sender.id;
-//       if (message.message) {
-//         // If user send text
-//         if (message.message.text) {
-//           var text = message.message.text;
-//           console.log(text); //text: message from user
-//           sendMessage(senderId, "Hello, I'm bot. You typed: " + text);
-//         }
-//       }
-//     }
-//   }
+app.post('/webhook', function(req, res) {
+  var entries = req.body.entry;
+  for (var entry of entries) {
+    var messaging = entry.messaging;
+    for (var message of messaging) {
+      var senderId = message.sender.id;
+      if (message.message) {
+        // If user send text
+        if (message.message.response) {
+          var response = message.message.response;
+          console.log(response); //text: message from user
+          sendMessage(senderId, "Hello, I'm Free Chat. Your topic is: " + response);
+        }
+      }
+    }
+  }
 
-//   res.status(200).send("OK");
-// });
+  res.status(200).send("OK");
+});
 
 app.get('/webhook', (req, res) => {
   let VERIFY_TOKEN = "randomToken";
@@ -111,7 +111,7 @@ const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
 
   if(payload === 'GET_STARTED'){
-    response = askTemplate('Choose a topic below');
+    response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
   }
 };
@@ -173,24 +173,7 @@ function callSendAPI(sender_psid, response, cb = null) {
         }
     });
 }
-//send info to RestAPI to answer
-// function sendMessage(senderId, message) {
-//   request({
-//     url: 'https://graph.facebook.com/v2.6/me/messages',
-//     qs: {
-//       access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
-//     },
-//     method: 'POST',
-//     json: {
-//       recipient: {
-//         id: senderId
-//       },
-//       message: {
-//         text: message
-//       },
-//     }
-//   });
-// }
+
 app.set('port', process.env.PORT || 5000);
 app.set('ip', process.env.IP || "0.0.0.0");
 
