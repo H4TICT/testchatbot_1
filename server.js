@@ -1,14 +1,22 @@
-'use strict';
-let express = require('express'),
-    bodyParser = require('body-parser'),
-    app = express();
- 
-app.use(bodyParser.urlencoded({ extended: false }));
+var logger = require('morgan');
+var http = require('http');
+var bodyParser = require('body-parser');
+var express = require('express');
+var request = require('request');
+var router = express();
+
+var app = express();
+app.use(logger('dev'));
 app.use(bodyParser.json());
- 
-app.listen(8989, () => console.log('Server listening on port 8989!'));
- 
-app.get('/', (req, res) => res.send('Server running OK'));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+var server = http.createServer(app);
+
+
+app.get('/', (req, res) => {
+  res.send("Home page. Server running okay.");
+});
 
 
 // app.get('/webhook', function(req, res) {
@@ -189,3 +197,9 @@ const callSendAPI = (sender_psid, response, cb = null) => {
 //     }
 //   });
 // }
+app.set('port', process.env.PORT || 5000);
+app.set('ip', process.env.IP || "0.0.0.0");
+
+server.listen(app.get('port'), app.get('ip'), function() {
+  console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
+});
