@@ -103,20 +103,20 @@ const askTemplate = (text) => {
             "template_type":"button",
             "text": text,
             "buttons":[
-                {
-                    "type":"postback",
-                    "title":"Games",
-                    "payload":"GAME_TOPIC"
-                },
-                {
-                    "type":"postback",
-                    "title":"Sports",
-                    "payload":"SPORTS_TOPIC"
-                }
-                {
+              {
                   "type":"postback",
-                  "title":"Fashion",
-                  "payload":"FASHION_TOPIC"
+                  "title":"Games",
+                  "payload":"GAME_TOPIC"
+              },
+              {
+                  "type":"postback",
+                  "title":"Sports",
+                  "payload":"SPORTS_TOPIC"
+              },
+              {
+                "type":"postback",
+                "title":"Fashion",
+                "payload":"FASHION_TOPIC"
               }
             ]
         }
@@ -125,24 +125,29 @@ const askTemplate = (text) => {
 }
 
 const callSendAPI = (sender_psid, response, cb = null) => {
-  let request_body = {
-    "recipient": {
-      "id": sender_psid
-    },
-    "message": response
-  };
+  // let request_body = {
+  //   "recipient": {
+  //     "id": sender_psid
+  //   },
+  //   "message": response
+  // };
 
   request({
-    "url": "https://graph.facebook.com/v2.6/me/messages",
+    url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {
       access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
     },
-    "method": "POST",
-    "json": request_body
+    method: 'POST',
+    json: {
+      recipient: {
+          id: sender_psid
+        },
+        message: {response}
+    }
   }, (err, res, body) => {
     if (!err) {
         if(cb){
-            cb();
+          cb();
         }
     } else {
         console.error("Unable to send message:" + err);
