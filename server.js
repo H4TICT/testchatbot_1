@@ -1,29 +1,22 @@
-var logger = require('morgan');
-var http = require('http');
-var bodyParser = require('body-parser');
-var express = require('express');
-var request = require('request');
-var router = express();
-
-var app = express();
-app.use(logger('dev'));
+'use strict';
+let express = require('express'),
+    bodyParser = require('body-parser'),
+    app = express();
+ 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-var server = http.createServer(app);
+ 
+app.listen(8989, () => console.log('Server listening on port 8989!'));
+ 
+app.get('/', (req, res) => res.send('Server running OK'));
 
 
-app.get('/', (req, res) => {
-  res.send("Home page. Server running okay.");
-});
-
-app.get('/webhook', function(req, res) {
-  if (req.query['hub.verify_token'] === 'randomToken') {
-    res.send(req.query['hub.challenge']);
-  }
-  res.send('Error, wrong validation token');
-});
+// app.get('/webhook', function(req, res) {
+//   if (req.query['hub.verify_token'] === 'randomToken') {
+//     res.send(req.query['hub.challenge']);
+//   }
+//   res.send('Error, wrong validation token');
+// });
 
 
 //user send message to bot
@@ -47,28 +40,54 @@ app.get('/webhook', function(req, res) {
 //   res.status(200).send("OK");
 // });
 
+app.get('/webhook', (req, res) => {
+  let VERIFY_TOKEN = "randomToken";
 
-app.post('/webhook', (req, res) => {
-  let body = req.body;
-  if (body.object === 'page') {
-    body.entry.forEach(function(entry){
-      let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+  let mode = req.query['hub.mode'];
+  let token = req.query['hub.verify_token'];
+  let challenge = req.query['hub.challenge'];
 
-      let sender_psid = webhook_event.sender.id;
-      console.log('Sender PSID: ' + sender_psid);
+  if (mode && token) {
 
-      if (webhook_event.message) {
-        console.log(webhook_event.message)
-      } else if (webhook_event.postback) {
-        console.log(webhook_event.postback)
+      if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+
+          console.log('WEBHOOK_VERIFIED');
+          res.status(200).send(challenge);
+
+      } else {
+          res.sendStatus(403);
       }
-    });
-    res.status(200).send('Event Received!');
-  } else {
-    res.sendStatus(404);
   }
 });
+
+app.post('/webhook', (req, res) => {
+ 
+  let body = req.body;
+
+  if (body.object === 'page') {
+
+      body.entry.forEach(function(entry) {
+
+          let webhook_event = entry.messaging[0];
+          console.log(webhook_event);
+
+          let sender_psid = webhook_event.sender.id;
+          console.log('Sender PSID: ' + sender_psid);
+
+          if (webhook_event.message) {
+            handleMessage(sender_psid, webhook_event.message);
+          } else if (webhook_event.postback) {
+            handlePostback(sender_psid, webhook_event.postback);
+          }
+      });
+
+      res.status(200).send('EVENT_RECEIVED');
+  } else {
+      res.sendStatus(404);
+  }
+});
+
+
 
 //handles messages events
 const handleMessage = (sender_psid, received_message) => {
@@ -88,11 +107,7 @@ const handlePostback = (sender_psid, received_postback) => {
   }
 };
 
-if (webhook_event.message) {
-  handleMessage(sender_psid, webhook_event.message);
-} else if (webhook_event.postback) {
-  handlePostback(sender_psid, webhook_event.postback);
-}
+
 
 
 const askTemplate = (text) => {
@@ -174,9 +189,3 @@ const callSendAPI = (sender_psid, response, cb = null) => {
 //     }
 //   });
 // }
-app.set('port', PORT || 5000);
-app.set('ip', IP || "0.0.0.0");
-
-server.listen(app.get('port'), app.get('ip'), function() {
-  console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
-});
