@@ -76,17 +76,17 @@ const handleMessage = (sender_psid, received_message) => {
   if (received_message.text) {
 
   }
-}
+};
 
 const handlePostback = (sender_psid, received_postback) => {
   let response;
   let payload = received_postback.payload;
 
-  if (payload === 'GET_STARTED'){
-    response = askTemplate('Please choose your topic then we can find you a friend.');
+  if(payload === 'GET_STARTED'){
+    response = askTemplate('Choose a topic below');
     callSendAPI(sender_psid, response);
   }
-}
+};
 
 if (webhook_event.message) {
   handleMessage(sender_psid, webhook_event.message);
@@ -98,31 +98,31 @@ if (webhook_event.message) {
 const askTemplate = (text) => {
   return {
     "attachment":{
-        "type":"template",
-        "payload":{
-            "template_type":"button",
-            "text": text,
-            "buttons":[
-              {
-                  "type":"postback",
-                  "title":"Games",
-                  "payload":"GAME_TOPIC"
-              },
-              {
-                  "type":"postback",
-                  "title":"Sports",
-                  "payload":"SPORTS_TOPIC"
-              },
-              {
-                "type":"postback",
-                "title":"Fashion",
-                "payload":"FASHION_TOPIC"
-              }
-            ]
-        }
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text": text,
+        "buttons":[
+          {
+              "type":"postback",
+              "title":"Games",
+              "payload":"GAME_TOPIC"
+          },
+          {
+              "type":"postback",
+              "title":"Sports",
+              "payload":"SPORTS_TOPIC"
+          },
+          {
+            "type":"postback",
+            "title":"Fashion",
+            "payload":"FASHION_TOPIC"
+          }
+        ]
+      }
     }
   }
-}
+};
 
 const callSendAPI = (sender_psid, response, cb = null) => {
   // let request_body = {
@@ -140,9 +140,11 @@ const callSendAPI = (sender_psid, response, cb = null) => {
     method: 'POST',
     json: {
       recipient: {
-          id: sender_psid
-        },
-        message: {response}
+        id: sender_psid
+      },
+      message: {
+        text: response 
+      },
     }
   }, (err, res, body) => {
     if (!err) {
