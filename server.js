@@ -39,7 +39,6 @@ app.get('/webhook', (req, res) => {
 });
 
 app.post('/webhook', (req, res) => {
-  console.log(req.body);
   let body = req.body;
   if (body.object === 'page') {
     body.entry.forEach(function(entry) {
@@ -60,21 +59,26 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
   };
 
-  var entries = req.body.entry;
-  for (var entry of entries) {
-    var messaging = entry.messaging;
-    for (var message of messaging) {
-      if (message.message) {
-        // If user send text
-        if (message.message.text) {
-          var content = message.message.text;
-          console.log(content); //text: message from user
-          // sendMessage(sender_psid, "Hello, I'm bot. You typed: " + content);
-          sendMessage(content);
+  app.post('/webhook', function(req, res, sender_psid) {
+    var entries = req.body.entry;
+    for (var entry of entries) {
+      var messaging = entry.messaging;
+      for (var message of messaging) {
+        var sender_psid = message.sender.id;
+        console.log(sender_psid);
+        if (message.message) {
+          // If user send text
+          if (message.message.text) {
+            var content = message.message.text;
+            console.log(content); //text: message from user
+            sendMessage(sender_psid, "Hello, I'm bot. You typed: " + content);
+          }
         }
       }
     }
-  }
+  
+    res.status(200).send("OK");
+  });
 
 });
 
