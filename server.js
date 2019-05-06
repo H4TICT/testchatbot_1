@@ -63,13 +63,12 @@ app.post('/webhook', (req, res) => {
   for (var entry of entries) {
     var messaging = entry.messaging;
     for (var message of messaging) {
-      var senderId = message.sender.id;
       if (message.message) {
         // If user send text
         if (message.message.content) {
           var content = message.message.content;
           console.log(content); //text: message from user
-          sendMessage(senderId, "Hello, I'm bot. You typed: " + content);
+          sendMessage(sender_psid, "Hello, I'm bot. You typed: " + content);
         }
       }
     }
