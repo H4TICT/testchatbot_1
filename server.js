@@ -92,10 +92,10 @@ const handlePostback = (sender_psid, received_postback, content) => {
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
-  } else{
-    sendMessage(sender_psid, sender_psid + "send you mess");
-  }
+  } 
 };
+
+  sendMessage(content, "mess is: " + content);
 
 const askTemplate = (text) => {
   return {
