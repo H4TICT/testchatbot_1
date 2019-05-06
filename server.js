@@ -69,7 +69,7 @@ app.post('/webhook', (req, res) => {
           var content = message.message.text;
           console.log(content); //text: message from user
           // sendMessage(sender_psid, "Hello, I'm bot. You typed: " + content);
-          sendMessage(content);
+          // sendMessage(content);
         }
       }
     }
@@ -94,7 +94,7 @@ const handlePostback = (sender_psid, received_postback) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
   } else{
-    sendMessage(sender_psid, sender_psid + " sent you a message");
+    sendMessage(content, "content is: " + content);
   }
 };
 
