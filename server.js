@@ -141,10 +141,10 @@ function sendMessage(sender_psid, text, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
-      "id": sender_psid
+      "id": "2281658205232297"
     },
     "message": {
-      "text": text
+      "text": "this message was sent from Postman, do not reply"
     }
   };
   request({
