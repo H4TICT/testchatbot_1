@@ -59,19 +59,19 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
   };
 
-  app.post('/webhook', function(req, res, sender_psid) {
+  app.post('/webhook', function(req, res) {
     var entries = req.body.entry;
     for (var entry of entries) {
       var messaging = entry.messaging;
       for (var message of messaging) {
         var sender_psid = message.sender.id;
-        console.log(sender_psid);
+        console.log("sender id: " + sender_psid);
         if (message.message) {
           // If user send text
           if (message.message.text) {
             var content = message.message.text;
             console.log(content); //text: message from user
-            sendMessage(sender_psid, "Hello, I'm bot. You typed: " + content);
+            sendMessage(content, "Hello, I'm bot. You typed: " + content);
           }
         }
       }
