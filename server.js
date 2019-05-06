@@ -77,12 +77,10 @@ const handlePostback = (sender_psid, received_postback, message) => {
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
+  } else {
+    sendMessage("you choosed: " + webhook_event.postback.title);
   }
 };
-
-const handleUserMessage = (sender_psid, received_message) => {
-
-}
 
 
 const askTemplate = (text) => {
