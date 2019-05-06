@@ -118,12 +118,13 @@ function callSendAPI(sender_psid, response, cb = null) {
     };
 
     // Send the HTTP request to the Messenger Platform
-    request({
+    request(
+      {
         "uri": "https://graph.facebook.com/v2.6/me/messages",
         "qs": { "access_token": "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD", },
         "method": "POST",
         "json": request_body
-    }, (err, res, body) => {
+      }, (err, res, body) => {
         if (!err) {
             if(cb){
                 cb();
@@ -132,6 +133,45 @@ function callSendAPI(sender_psid, response, cb = null) {
             console.error("Unable to send message:" + err);
         }
     });
+};
+
+app.post('/webhook', function(req, res) {
+  var entries = req.body.entry;
+  for (var entry of entries) {
+    var messaging = entry.messaging;
+    for (var message of messaging) {
+      var senderId = message.sender.id;
+      if (message.message) {
+        // If user send text
+        if (message.message.text) {
+          var text = message.message.text;
+          console.log(text); //text: message from user
+          sendMessage(senderId, "Hello, I'm bot. You typed: " + text);
+        }
+      }
+    }
+  }
+
+  res.status(200).send("OK");
+});
+
+
+function sendMessage(senderId, message) {
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {
+      access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
+    },
+    method: 'POST',
+    json: {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        text: message
+      },
+    }
+  });
 }
 
 app.set('port', process.env.PORT || 5000);
