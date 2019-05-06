@@ -157,9 +157,6 @@ function callSendAPI(sender_psid, response, cb = null) {
 function sendMessage(sender_psid, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
-    "sender": {
-      "id": sender_psid
-    },
     "recipient": {
       "id": "2281658205232297"
     },
@@ -168,7 +165,7 @@ function sendMessage(sender_psid, message, cb = null) {
     }
   };
   request({
-      "uri": "https://graph.facebook.com/v3.3/me/messages?access_token=EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
+      "uri": "https://graph.facebook.com/v3.3/me/messages",
       "qs": { "access_token": "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD", },
       "method": "POST",
       "json": message_sent
