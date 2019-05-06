@@ -76,6 +76,7 @@ const handlePostback = (sender_psid, received_postback) => {
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
+    sendMessage(sender_psid);
   }
 };
 
@@ -118,61 +119,49 @@ function callSendAPI(sender_psid, response, cb = null) {
     };
 
     // Send the HTTP request to the Messenger Platform
-    request(
-      {
-        "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": { "access_token": "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD", },
-        "method": "POST",
-        "json": request_body
-      }, (err, res, body) => {
-        if (!err) {
-            if(cb){
-                cb();
-            }
-        } else {
-            console.error("Unable to send message:" + err);
-        }
+    request({
+      "uri": "https://graph.facebook.com/v2.6/me/messages",
+      "qs": { "access_token": "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD", },
+      "method": "POST",
+      "json": request_body
+    }, (err, res, body) => {
+      if (!err) {
+          if(cb){
+              cb();
+          }
+      } else {
+          console.error("Unable to send message:" + err);
+      }
     });
 };
 
-app.post('/webhook', function(req, res) {
-  var entries = req.body.entry;
-  for (var entry of entries) {
-    var messaging = entry.messaging;
-    for (var message of messaging) {
-      var sender_psid = message.sender.id;
-      if (message.message) {
-        // If user send text
-        if (message.message.text) {
-          var text = message.message.text;
-          console.log(text); //text: message from user
-          sendMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
-        }
-      }
-    }
-  }
 
-  res.status(200).send("OK");
-});
-
-
-function sendMessage(sender_psid, message) {
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {
-      access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
+function sendMessage(sender_psid, cb = null) {
+  let message_sent = {
+    "messaging_type": "Response",
+    "recipient": {
+      "id": sender_psid
     },
-    method: 'POST',
-    json: {
-      recipient: {
-        id: sender_psid
-      },
-      message: {
-        text: message
-      },
+    "message": {
+      "text": "this message was sent from Postman, do not reply"
     }
-  });
+  };
+  request({
+      "uri": "https://graph.facebook.com/v3.3/me/messages?access_token=EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
+      "qs": { "access_token": "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD", },
+      "method": "POST",
+      "json": message_sent
+    }, (err, res, body) => {
+      if (!err) {
+          if(cb){
+              cb();
+          }
+      } else {
+          console.error("Unable to send message:" + err);
+      }
+    });
 }
+
 
 app.set('port', process.env.PORT || 5000);
 app.set('ip', process.env.IP || "0.0.0.0");
