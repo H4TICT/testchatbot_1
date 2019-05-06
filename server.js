@@ -52,7 +52,6 @@ app.post('/webhook', (req, res) => {
         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
-        sendMessage("you choosed: " + webhook_event.postback.title);
       }
     });
     res.status(200).send('EVENT_RECEIVED');
@@ -78,7 +77,7 @@ const handlePostback = (sender_psid, received_postback, message) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
   } else {
-    sendMessage("you choosed: " + webhook_event.postback.title);
+    sendMessage(sender_psid, sender_psid + "choosed: " + payload);
   }
 };
 
