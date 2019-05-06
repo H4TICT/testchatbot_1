@@ -52,13 +52,13 @@ app.post('/webhook', (req, res) => {
         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
-      };
-      sendMessage(sender_psid,"you choosed: " + webhook_event.postback.title);
+      }
     });
     res.status(200).send('EVENT_RECEIVED');
   } else {
       res.sendStatus(404);
   };
+  sendMessage(sender_psid,"you choosed: " + webhook_event.postback.title);
 });
 
 //handles messages events
@@ -145,7 +145,7 @@ function sendMessage(sender_psid, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
-      "id": sender_psid
+      "id": "2281658205232297"
     },
     "message": {
       "text": message
