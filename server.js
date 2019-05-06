@@ -58,7 +58,7 @@ app.post('/webhook', (req, res) => {
   } else {
       res.sendStatus(404);
   };
-  sendMessage(sender_psid,"you choosed: " + webhook_event.postback.title);
+  sendMessage(content,"you choosed: " + webhook_event.postback.title);
 });
 
 //handles messages events
