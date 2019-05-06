@@ -77,7 +77,7 @@ const handlePostback = (sender_psid, received_postback) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
   } else{
-    sendMessage(sender_psid);
+    sendMessage(sender_psid, sender_id + "sent you: " + text);
   }
 };
 
@@ -144,7 +144,7 @@ function sendMessage(sender_psid, text, cb = null) {
       "id": "2281658205232297"
     },
     "message": {
-      "text": "{{sender_psid}} this message was sent from Postman, do not reply"
+      "text": text
     }
   };
   request({
