@@ -57,7 +57,7 @@ app.post('/webhook', (req, res) => {
     res.status(200).send('EVENT_RECEIVED');
   } else {
       res.sendStatus(404);
-  }
+  };
 
   var entries = req.body.entry;
   for (var entry of entries) {
@@ -69,6 +69,7 @@ app.post('/webhook', (req, res) => {
           var content = message.message.text;
           console.log(content); //text: message from user
           // sendMessage(sender_psid, "Hello, I'm bot. You typed: " + content);
+          sendMessage(content, sender_psid + " sent you a message" + content);
         }
       }
     }
