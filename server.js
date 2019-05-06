@@ -52,9 +52,9 @@ app.post('/webhook', (req, res) => {
         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
+        sendMessage("you choosed: " + webhook_event.postback.title);
       }
     });
-    sendMessage("you choosed: " + webhook_event.postback.title);
     res.status(200).send('EVENT_RECEIVED');
   } else {
       res.sendStatus(404);
