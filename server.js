@@ -139,14 +139,14 @@ function callSendAPI(sender_psid, response, cb = null) {
 };
 
 
-function sendMessage(sender_psid, content, cb = null) {
+function sendMessage(sender_psid, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
       "id": sender_psid
     },
     "message": {
-      "text": content
+      "text": "Anonymous choose 1 topic !!"
     }
   };
   request({
