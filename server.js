@@ -58,28 +58,6 @@ app.post('/webhook', (req, res) => {
   } else {
       res.sendStatus(404);
   };
-
-  app.post('/webhook', function(req, res) {
-    var entries = req.body.entry;
-    for (var entry of entries) {
-      var messaging = entry.messaging;
-      for (var message of messaging) {
-        var sender_psid = message.sender.id;
-        console.log("sender id: " + sender_psid);
-        if (message.message) {
-          // If user send text
-          if (message.message.text) {
-            var content = message.message.text;
-            console.log(content); //text: message from user
-            sendMessage(content, "Hello, I'm bot. You typed: " + content);
-          }
-        }
-      }
-    }
-  
-    res.status(200).send("OK");
-  });
-
 });
 
 //handles messages events
@@ -99,7 +77,7 @@ const handlePostback = (sender_psid, received_postback, content) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
   } else {
-    sendMessage(content, "mess is: " + content);
+    sendMessage(sender_psid, "log: " + sender_psid);
   }
 };
 
