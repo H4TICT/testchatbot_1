@@ -140,13 +140,13 @@ app.post('/webhook', function(req, res) {
   for (var entry of entries) {
     var messaging = entry.messaging;
     for (var message of messaging) {
-      var senderId = message.sender.id;
+      var sender_psid = message.sender.id;
       if (message.message) {
         // If user send text
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendMessage(senderId, "Hello, I'm bot. You typed: " + text);
+          sendMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
         }
       }
     }
@@ -156,7 +156,7 @@ app.post('/webhook', function(req, res) {
 });
 
 
-function sendMessage(senderId, message) {
+function sendMessage(sender_psid, message) {
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {
@@ -165,7 +165,7 @@ function sendMessage(senderId, message) {
     method: 'POST',
     json: {
       recipient: {
-        id: senderId
+        id: sender_psid
       },
       message: {
         text: message
