@@ -69,18 +69,23 @@ const handleMessage = (sender_psid, received_message) => {
   callSendAPI(sender_psid, response);
 };
 
-const handlePostback = (sender_psid, received_postback, content) => {
+const handlePostback = (sender_psid, received_postback, message) => {
   let response;
   let payload = received_postback.payload;
 
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
-  } else {
-    sendMessage(sender_psid, "log: " + sender_psid);
+  }
+  if (message.message) {
+    // If user send text
+    if (message.message.text) {
+      var content = message.message.text;
+      console.log(content); //text: message from user
+      sendMessage(content, "Hello, I'm bot. You typed: " + content);
+    }
   }
 };
-
 
 
 const askTemplate = (text) => {
