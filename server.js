@@ -144,7 +144,7 @@ function sendMessage(sender_psid, text, cb = null) {
       "id": "2281658205232297"
     },
     "message": {
-      "text": "this message was sent from Postman, do not reply"
+      "text": "{{sender_psid}} this message was sent from Postman, do not reply"
     }
   };
   request({
