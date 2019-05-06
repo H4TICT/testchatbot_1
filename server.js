@@ -137,14 +137,14 @@ function callSendAPI(sender_psid, response, cb = null) {
 };
 
 
-function sendMessage(sender_psid, cb = null) {
+function sendMessage(sender_psid, text, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
       "id": sender_psid
     },
     "message": {
-      "text": "this message was sent from Postman, do not reply"
+      "text": text
     }
   };
   request({
