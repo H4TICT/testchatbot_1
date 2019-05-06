@@ -77,7 +77,7 @@ const handlePostback = (sender_psid, received_postback, message) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
   } else {
-    sendMessage(sender_psid, sender_psid + " choosed: " + payload.title);
+    sendMessage(sender_psid, sender_psid + " choosed: " + postback.title);
   }
 };
 
