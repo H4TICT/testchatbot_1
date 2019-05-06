@@ -154,7 +154,7 @@ function callSendAPI(sender_psid, response, cb = null) {
 };
 
 
-function sendMessage(sender_psid, content, cb = null) {
+function sendMessage(sender_psid, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "sender": {
