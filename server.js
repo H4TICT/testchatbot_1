@@ -43,7 +43,7 @@ app.post('/webhook', (req, res) => {
   if (body.object === 'page') {
     body.entry.forEach(function(entry) {
       let webhook_event = entry.messaging[0];
-      // console.log(webhook_event);
+      console.log(webhook_event);
 
       let sender_psid = webhook_event.sender.id;
       // console.log('Sender PSID: ' + sender_psid);
@@ -64,7 +64,6 @@ app.post('/webhook', (req, res) => {
 const handleMessage = (sender_psid, received_message) => {
   let response;
   if (received_message.text) {
-    console.log("message is: " + received_message.text);
     response = askTemplate();
   }
   callSendAPI(sender_psid, response);
@@ -79,6 +78,10 @@ const handlePostback = (sender_psid, received_postback, message) => {
     callSendAPI(sender_psid, response);
   }
 };
+
+const handleUserMessage = (sender_psid, received_message) => {
+
+}
 
 
 const askTemplate = (text) => {
