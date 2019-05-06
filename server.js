@@ -86,7 +86,7 @@ const handleMessage = (sender_psid, received_message) => {
   callSendAPI(sender_psid, response);
 };
 
-const handlePostback = (sender_psid, received_postback) => {
+const handlePostback = (sender_psid, received_postback, content) => {
   let response;
   let payload = received_postback.payload;
 
