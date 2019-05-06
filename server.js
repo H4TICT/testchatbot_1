@@ -52,6 +52,7 @@ app.post('/webhook', (req, res) => {
         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
+        sendMessage(sender_psid,"log is: " + sender_psid);
       }
     });
     res.status(200).send('EVENT_RECEIVED');
