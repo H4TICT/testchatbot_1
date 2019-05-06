@@ -54,11 +54,11 @@ app.post('/webhook', (req, res) => {
         handlePostback(sender_psid, webhook_event.postback);
       }
     });
+    sendMessage("you choosed: " + webhook_event.postback.title);
     res.status(200).send('EVENT_RECEIVED');
   } else {
       res.sendStatus(404);
   };
-  sendMessage("you choosed: " + webhook_event.postback.title);
 });
 
 //handles messages events
