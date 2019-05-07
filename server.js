@@ -172,7 +172,7 @@ function sendMessage(sender_psid, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
-      "id": "2281658205232297"
+      "id": sender_psid
     },
     "message": {
       "text": message
