@@ -72,7 +72,7 @@ app.post('/webhook', function(req, res) {
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendTypedMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
+          sendMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
         }
       }
     }
@@ -97,9 +97,10 @@ const handlePostback = (sender_psid, received_postback, message) => {
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
-  } else {
-    sendMessage(sender_psid, sender_psid + " choosed: " + payload);
-  }
+  } 
+  // else {
+  //   sendMessage(sender_psid, sender_psid + " choosed: " + payload);
+  // }
 };
 
 
@@ -160,14 +161,14 @@ function callSendAPI(sender_psid, response, cb = null) {
 };
 
 
-function sendMessage(sender_psid, cb = null) {
+function sendMessage(sender_psid, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
       "id": "2281658205232297"
     },
     "message": {
-      "text": "hello there"
+      "text": message
     }
   };
   request({
