@@ -39,7 +39,7 @@ app.get('/webhook', (req, res) => {
 });
 
 
-//using webhook handle Events
+//using webhook handle Events.
 app.post('/webhook', (req, res) => {
   let body = req.body;
   if (body.object === 'page') {
