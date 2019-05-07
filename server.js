@@ -38,6 +38,8 @@ app.get('/webhook', (req, res) => {
   }
 });
 
+
+//using webhook handle Events
 app.post('/webhook', (req, res) => {
   let body = req.body;
   if (body.object === 'page') {
@@ -60,26 +62,8 @@ app.post('/webhook', (req, res) => {
   };
 });
 
-// app.post('/webhook', function(req, res) {
-//   var entries = req.body.entry;
-//   for (var entry of entries) {
-//     var messaging = entry.messaging;
-//     for (var message of messaging) {
-//       if (message.message) {
-//         // If user send text
-//         if (message.message.text) {
-//           var text = message.message.text;
-//           console.log(text); //text: message from user
-//           handleMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
-//         }
-//       }
-//     }
-//   }
-//   res.status(200).send("OK");
-// });
 
-
-//handles messages events
+//handles Messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
   let message;
@@ -91,6 +75,8 @@ const handleMessage = (sender_psid, received_message) => {
   callSendAPI(sender_psid, response);
 };
 
+
+//handle Postback events
 const handlePostback = (sender_psid, received_postback, message) => {
   let response;
   let payload = received_postback.payload;
@@ -103,9 +89,7 @@ const handlePostback = (sender_psid, received_postback, message) => {
   }
 };
 
-
-
-
+//return topic list 
 const askTemplate = (text) => {
   return {
     "attachment":{
@@ -188,24 +172,6 @@ function sendMessage(sender_psid, message, cb = null) {
     });
 }
 
-
-// function sendTypedMessage(senderId, message) {
-//   request({
-//     url: 'https://graph.facebook.com/v3.3/me/messages',
-//     qs: {
-//       access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
-//     },
-//     method: 'POST',
-//     json: {
-//       recipient: {
-//         id: senderId
-//       },
-//       message: {
-//         text: message
-//       },
-//     }
-//   });
-// }
 
 app.set('port', process.env.PORT || 5000);
 app.set('ip', process.env.IP || "0.0.0.0");
