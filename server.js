@@ -72,7 +72,7 @@ app.post('/webhook', function(req, res) {
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
+          handleTypedMessage("Hello, I'm bot. You typed: " + text);
         }
       }
     }
