@@ -65,7 +65,7 @@ app.post('/webhook', function(req, res) {
   for (var entry of entries) {
     var messaging = entry.messaging;
     for (var message of messaging) {
-      console.log("mess iss:" + message.sender);
+      console.log("mess iss:" + message.sender.id);
       var senderId = message.sender.id;
       if (message.message) {
         // If user send text
