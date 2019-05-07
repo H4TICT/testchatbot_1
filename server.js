@@ -84,8 +84,10 @@ app.post('/webhook', function(req, res) {
 //handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
+  let message;
   if (received_message.text) {
     response = askTemplate();
+    message = received_message.text;
     sendMessage(sender_psid, message);
   }
   callSendAPI(sender_psid, response);
