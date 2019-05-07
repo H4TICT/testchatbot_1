@@ -65,8 +65,6 @@ app.post('/webhook', function(req, res) {
   for (var entry of entries) {
     var messaging = entry.messaging;
     for (var message of messaging) {
-      console.log("mess iss:" + message.sender.id);
-      let sender_psid = message.sender.id;
       if (message.message) {
         // If user send text
         if (message.message.text) {
@@ -103,10 +101,10 @@ const handlePostback = (sender_psid, received_postback, message) => {
   // }
 };
 
-const handleTypedMessage = (sender_psid, message) => {
+const handleTypedMessage = (sender_psid, received_message) => {
   let response;
-  if(message.message.text) {
-    response = sendMessage(message);
+  if(received_message.text) {
+    response = sendMessage(sender_psid, message);
   }
 };
 
