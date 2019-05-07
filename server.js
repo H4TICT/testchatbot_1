@@ -66,13 +66,13 @@ app.post('/webhook', function(req, res) {
     var messaging = entry.messaging;
     for (var message of messaging) {
       console.log("mess iss:" + message.sender.id);
-      var senderId = message.sender.id;
+      let sender_psid = message.sender.id;
       if (message.message) {
         // If user send text
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendTypedMessage(senderId, "Hello, I'm bot. You typed: " + text);
+          sendTypedMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
         }
       }
     }
@@ -187,23 +187,23 @@ function sendMessage(sender_psid, cb = null) {
 }
 
 
-function sendTypedMessage(senderId, message) {
-  request({
-    url: 'https://graph.facebook.com/v3.3/me/messages',
-    qs: {
-      access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
-    },
-    method: 'POST',
-    json: {
-      recipient: {
-        id: senderId
-      },
-      message: {
-        text: message
-      },
-    }
-  });
-}
+// function sendTypedMessage(senderId, message) {
+//   request({
+//     url: 'https://graph.facebook.com/v3.3/me/messages',
+//     qs: {
+//       access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
+//     },
+//     method: 'POST',
+//     json: {
+//       recipient: {
+//         id: senderId
+//       },
+//       message: {
+//         text: message
+//       },
+//     }
+//   });
+// }
 
 app.set('port', process.env.PORT || 5000);
 app.set('ip', process.env.IP || "0.0.0.0");
