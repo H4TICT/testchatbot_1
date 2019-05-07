@@ -43,7 +43,7 @@ app.post('/webhook', (req, res) => {
   if (body.object === 'page') {
     body.entry.forEach(function(entry) {
       let webhook_event = entry.messaging[0];
-      // console.log(webhook_event);
+      console.log(webhook_event);
 
       let sender_psid = webhook_event.sender.id;
       // console.log('Sender PSID: ' + sender_psid);
@@ -65,7 +65,7 @@ app.post('/webhook', function(req, res) {
   for (var entry of entries) {
     var messaging = entry.messaging;
     for (var message of messaging) {
-      console.log(message.sender);
+      console.log("mess iss:" + message.sender);
       var senderId = message.sender.id;
       if (message.message) {
         // If user send text
