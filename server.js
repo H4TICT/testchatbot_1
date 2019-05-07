@@ -102,7 +102,6 @@ const handlePostback = (sender_psid, received_postback, message) => {
   }
 };
 
-const handleTypedMessage = (sender_psid, received_message, )
 
 
 const askTemplate = (text) => {
