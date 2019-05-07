@@ -43,7 +43,7 @@ app.post('/webhook', (req, res) => {
   if (body.object === 'page') {
     body.entry.forEach(function(entry) {
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+      // console.log(webhook_event);
 
       let sender_psid = webhook_event.sender.id;
       // console.log('Sender PSID: ' + sender_psid);
@@ -59,6 +59,27 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
   };
 });
+
+app.post('/webhook', function(req, res) {
+  var entries = req.body.entry;
+  for (var entry of entries) {
+    var messaging = entry.messaging;
+    for (var message of messaging) {
+      console.log(message.sender);
+      var senderId = message.sender.id;
+      if (message.message) {
+        // If user send text
+        if (message.message.text) {
+          var text = message.message.text;
+          console.log(text); //text: message from user
+          sendMessage(senderId, "Hello, I'm bot. You typed: " + text);
+        }
+      }
+    }
+  }
+  res.status(200).send("OK");
+});
+
 
 //handles messages events
 const handleMessage = (sender_psid, received_message) => {
@@ -80,6 +101,8 @@ const handlePostback = (sender_psid, received_postback, message) => {
     sendMessage(sender_psid, sender_psid + " choosed: " + payload);
   }
 };
+
+const handleTypedMessage = (sender_psid, received_message, )
 
 
 const askTemplate = (text) => {
