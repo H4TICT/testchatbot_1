@@ -196,7 +196,7 @@ function sendTypedMessage(senderId, message) {
     method: 'POST',
     json: {
       recipient: {
-        id: "2281658205232297"
+        id: senderId
       },
       message: {
         text: message
