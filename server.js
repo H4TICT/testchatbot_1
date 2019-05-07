@@ -46,7 +46,7 @@ app.post('/webhook', (req, res) => {
       console.log(webhook_event);
 
       let sender_psid = webhook_event.sender.id;
-      // console.log('Sender PSID: ' + sender_psid);
+      console.log('Sender PSID: ' + sender_psid);
 
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);
@@ -72,7 +72,7 @@ app.post('/webhook', function(req, res) {
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendTypedMessage(senderId, "Hello, I'm bot. You typed: " + text);
+          sendTypedMessage("Hello, I'm bot. You typed: " + text);
         }
       }
     }
@@ -189,7 +189,7 @@ function sendMessage(sender_psid, message, cb = null) {
 
 function sendTypedMessage(senderId, message) {
   request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
+    url: 'https://graph.facebook.com/v3.3/me/messages',
     qs: {
       access_token: "EAAeLpZCmj8J8BAN8sFu7DEvemfE7cHETzOxVFlqqwZAmFoAHf1d4U396t7MI0LoKISFGOSjQYXMoq3rvSIzifobxy8Aq8ZAuTBK49aKY6sSJBUWo5EDFjUAMncvurF7FsKoKehM6JMfnOvMkmCxTbD2OM5ZAS8zjUdfFgKHJ8IUNalee7ec8feDZBd5u6jwEZD",
     },
