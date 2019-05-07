@@ -72,7 +72,7 @@ app.post('/webhook', function(req, res) {
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          sendTypedMessage(senderId,"Hello, I'm bot. You typed: " + text);
+          sendTypedMessage(senderId, "Hello, I'm bot. You typed: " + text);
         }
       }
     }
@@ -160,14 +160,14 @@ function callSendAPI(sender_psid, response, cb = null) {
 };
 
 
-function sendMessage(sender_psid, message, cb = null) {
+function sendMessage(sender_psid, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
       "id": "2281658205232297"
     },
     "message": {
-      "text": message
+      "text": "hello there"
     }
   };
   request({
