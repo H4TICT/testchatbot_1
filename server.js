@@ -60,25 +60,23 @@ app.post('/webhook', (req, res) => {
   };
 });
 
-app.post('/webhook', function(req, res) {
-  var entries = req.body.entry;
-  for (var entry of entries) {
-    var messaging = entry.messaging;
-    for (var message of messaging) {
-      if (message.message) {
-        // If user send text
-        if (message.message.text) {
-          var text = message.message.text;
-          console.log(text); //text: message from user
-          handleMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
-        }
-      }
-    }
-  }
-  res.status(200).send("OK");
-});
-
-
+// app.post('/webhook', function(req, res) {
+//   var entries = req.body.entry;
+//   for (var entry of entries) {
+//     var messaging = entry.messaging;
+//     for (var message of messaging) {
+//       if (message.message) {
+//         // If user send text
+//         if (message.message.text) {
+//           var text = message.message.text;
+//           console.log(text); //text: message from user
+//           handleMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
+//         }
+//       }
+//     }
+//   }
+//   res.status(200).send("OK");
+// });
 
 
 //handles messages events
@@ -100,10 +98,9 @@ const handlePostback = (sender_psid, received_postback, message) => {
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
-  } 
-  // else {
-  //   sendMessage(sender_psid, sender_psid + " choosed: " + payload);
-  // }
+  } else {
+    sendMessage(sender_psid, sender_psid + " choosed: " + payload);
+  }
 };
 
 
