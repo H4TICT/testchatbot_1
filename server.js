@@ -70,7 +70,7 @@ app.post('/webhook', function(req, res) {
         if (message.message.text) {
           var text = message.message.text;
           console.log(text); //text: message from user
-          handleTypedMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
+          handleMessage(sender_psid, "Hello, I'm bot. You typed: " + text);
         }
       }
     }
@@ -78,12 +78,6 @@ app.post('/webhook', function(req, res) {
   res.status(200).send("OK");
 });
 
-const handleTypedMessage = (sender_psid, message) => {
-  if(message.text) {
-    console.log("text is: " + message.text);
-    response = sendMessage(sender_psid, message);
-  }
-};
 
 
 
@@ -92,6 +86,7 @@ const handleMessage = (sender_psid, received_message) => {
   let response;
   if (received_message.text) {
     response = askTemplate();
+    sendMessage(sender_psid, message);
   }
   callSendAPI(sender_psid, response);
 };
