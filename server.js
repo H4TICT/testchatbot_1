@@ -78,9 +78,9 @@ app.post('/webhook', function(req, res) {
   res.status(200).send("OK");
 });
 
-const handleTypedMessage = (sender_psid, received_message) => {
-  if(received_message.text) {
-    console.log("text is: " + received_message.text);
+const handleTypedMessage = (sender_psid, message) => {
+  if(message.text) {
+    console.log("text is: " + message.text);
     response = sendMessage(sender_psid, message);
   }
 };
