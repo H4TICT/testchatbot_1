@@ -103,6 +103,13 @@ const handlePostback = (sender_psid, received_postback, message) => {
   // }
 };
 
+const handleTypedMessage = (sender_psid, message) => {
+  let response;
+  if(message.message.text) {
+    response = sendMessage(message);
+  }
+};
+
 
 
 const askTemplate = (text) => {
