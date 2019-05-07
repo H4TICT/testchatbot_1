@@ -78,12 +78,20 @@ app.post('/webhook', function(req, res) {
   res.status(200).send("OK");
 });
 
+const handleTypedMessage = (sender_psid, received_message) => {
+  let response;
+  if(received_message.text) {
+    response = sendMessage(sender_psid, message);
+  }
+};
+
+
 
 //handles messages events
 const handleMessage = (sender_psid, received_message) => {
   let response;
   if (received_message.text) {
-    console.log(received_message.text);
+    console.log("text is: " + received_message.text);
     response = askTemplate();
   }
   callSendAPI(sender_psid, response);
@@ -102,12 +110,6 @@ const handlePostback = (sender_psid, received_postback, message) => {
   // }
 };
 
-const handleTypedMessage = (sender_psid, received_message) => {
-  let response;
-  if(received_message.text) {
-    response = sendMessage(sender_psid, message);
-  }
-};
 
 
 
