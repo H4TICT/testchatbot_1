@@ -7,4 +7,4 @@ var userRequestSchema = new Schema ({
     topic: {type: 'string', maxlength: 30, nullable: false}
 });
 
-module.exports = mongoose.model('UserRequest', userRequestSchema);
+module.exports = mongoose.model('userRequest', userRequestSchema);

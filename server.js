@@ -5,6 +5,8 @@ var express = require('express');
 var request = require('request');
 
 var send_UserRequest = require('./model/db.service');
+// var userRequest = require('./controller/db.collection');
+
 
 var app = express();
 app.use(logger('dev'));
@@ -18,10 +20,20 @@ var server = http.createServer(app);
 var db = 'mongodb://localhost:27017/users'
 
 //check server running OK
-app.get('/', (req, res) => {
-  res.send("Home page. Server running okay.");
-});
+// app.get('/', (req, res) => {
+//   res.send("Home page. Server running okay.");
+// });
 
+// app.post('/', function(req, res) {
+//   userRequest.create(req.body, function(err, user) {
+//     if(err) {     
+//       res.send('error !!!');
+//     } else {
+//       console.log(user);
+//       res.send(user);
+//     }
+//   });
+// });
 
 //set up webhook
 app.get('/webhook', (req, res) => {
