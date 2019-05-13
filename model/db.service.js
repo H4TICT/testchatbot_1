@@ -21,6 +21,7 @@ app.post('/', (req, res) => {
         res.send('error: ' + err);
     });
 });
+return send_UserRequest(user);
 
 module.exports = send_UserRequest(user);
 
