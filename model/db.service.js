@@ -20,11 +20,9 @@ app.post('/', (req, res) => {
     .catch((err)=>{
         res.send('error: ' + err);
     });
-    return send_UserRequest(user);
 });
 
-module.exports = send_UserRequest(user);
-
+exports.send_UserRequest = send_UserRequest;
 
 
 
