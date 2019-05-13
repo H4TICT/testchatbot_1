@@ -19,7 +19,7 @@ app.post('/', (req, res) => {
             console.log(user);
             res.json(user);
         }
-    })
+    });
 });
 
 module.exports = send_UserRequest(err, user);
