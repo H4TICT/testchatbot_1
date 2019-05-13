@@ -3,7 +3,8 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 var request = require('request');
-var router = express();
+
+var send_UserRequest = require('./model/db.service');
 
 var app = express();
 app.use(logger('dev'));
@@ -13,11 +14,16 @@ app.use(bodyParser.urlencoded({
 }));
 var server = http.createServer(app);
 
+//database url
+var db = 'mongodb://localhost:27017/users'
 
+//check server running OK
 app.get('/', (req, res) => {
   res.send("Home page. Server running okay.");
 });
 
+
+//set up webhook
 app.get('/webhook', (req, res) => {
   let VERIFY_TOKEN = "randomToken";
 
@@ -48,7 +54,7 @@ app.post('/webhook', (req, res) => {
       console.log(webhook_event);
 
       let sender_psid = webhook_event.sender.id;
-      console.log('Sender PSID: ' + sender_psid);
+      // console.log('Sender PSID: ' + sender_psid);
 
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);
@@ -84,6 +90,7 @@ const handlePostback = (sender_psid, received_postback, message) => {
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
+    send_UserRequest(user)
   } else {
     sendMessage(sender_psid, sender_psid + " choosed: " + payload);
   }
