@@ -13,7 +13,7 @@ app.post('/', (req, res) => {
         _id: req.params.id
     })
     .exec()
-    .then( function send_UserRequest(user){
+    .then( send_UserRequest = (user) => {
         res.json(user);
         console.log(user);
     })
