@@ -2,11 +2,11 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose'); 
-var http = require('http');
+// var http = require('http');
 var bodyParser = require('body-parser');
 
 
-var server = http.createServer(app);
+// var server = http.createServer(app);
 
 
 var db = 'mongodb://localhost:27017/users'
@@ -35,10 +35,10 @@ app.post('/user', function(req, res) {
     });
   });
 
-  app.set('port', process.env.PORT || 5000);
-  app.set('ip', process.env.IP || "0.0.0.0");
+  // app.set('port', process.env.PORT || 8080);
+  // app.set('ip', process.env.IP || "0.0.0.0");
 
-  server.listen(app.get('port'), app.get('ip'));
+  // server.listen(app.get('port'), app.get('ip'));
 
 
 
