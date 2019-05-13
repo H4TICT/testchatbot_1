@@ -90,7 +90,7 @@ const handlePostback = (sender_psid, received_postback, message) => {
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
-    send_UserRequest(user)
+    send_UserRequest(user);
   } else {
     sendMessage(sender_psid, sender_psid + " choosed: " + payload);
   }
