@@ -22,7 +22,7 @@ app.post('/', (req, res) => {
     });
 });
 
-exports.send_UserRequest = send_UserRequest;
+exports.send_UserRequest(user) = send_UserRequest(user);
 
 
 
