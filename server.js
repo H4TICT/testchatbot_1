@@ -92,7 +92,7 @@ const handlePostback = (sender_psid, received_postback, message) => {
     callSendAPI(sender_psid, response);
   } else {
     sendMessage(sender_psid, sender_psid + " choosed: " + payload);
-    send_UserRequest(user, 'user is: ' + user);
+    send_UserRequest(user);
   }
 };
 
