@@ -8,23 +8,21 @@ var db = 'mongodb://localhost:27017/users'
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
-function send_UserRequest(){
-    app.post('/user', (req, res) => {
-        UserRequest.findOne({
-            _id: req.params.id
-        })
-        .exec()
-        .then((user) => {
+app.post('/', (req, res) => {
+    UserRequest.findOne({
+        _id: req.params.id
+    })
+    .exec(function send_UserRequest(err, user){
+        if(err){
+            res.send('error: ' + err);
+        } else {
             console.log(user);
             res.json(user);
-        })
-        .catch((err) => {
-            res.send('error: ' + err);
-        });
-    });
-};
+        }
+    })
+});
 
-module.exports = send_UserRequest;
+module.exports = send_UserRequest(err, user);
 
 
 
