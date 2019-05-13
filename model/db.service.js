@@ -13,15 +13,15 @@ app.post('/', (req, res) => {
         _id: req.params.id
     })
     .exec()
-    .then( send_UserRequest = (user) => {
+    .then( function send_UserRequest(user){
         res.json(user);
         console.log(user);
     })
     .catch((err)=>{
         res.send('error: ' + err);
     });
+    return send_UserRequest(user);
 });
-return send_UserRequest(user);
 
 module.exports = send_UserRequest(user);
 
