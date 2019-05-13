@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
 app.post('/', (req, res) => {
-    UserRequest.create(req.body, function send_userReqest(err, user){
+    UserRequest.create(req.body, module.exports =  function send_userReqest(err, user){
         if(err) {
             res.send('error: ' + err);
         } else {
@@ -19,7 +19,7 @@ app.post('/', (req, res) => {
     });
 });
 
-module.exports = send_userReqest(err,user);
+
 
 
 
