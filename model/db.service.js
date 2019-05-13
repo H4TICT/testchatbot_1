@@ -12,17 +12,17 @@ app.post('/', (req, res) => {
     UserRequest.findOne({
         _id: req.params.id
     })
-    .exec(function send_UserRequest(err, user){
-        if(err){
-            res.send('error: ' + err);
-        } else {
-            console.log(user);
-            res.json(user);
-        }
+    .exec()
+    .then( function send_UserRequest(user){
+        res.json(user);
+        console.log(user);
+    })
+    .catch((err)=>{
+        res.send('error: ' + err);
     });
 });
 
-module.exports = send_UserRequest(err, user);
+module.exports = send_UserRequest(user);
 
 
 
