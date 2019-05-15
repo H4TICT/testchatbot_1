@@ -3,10 +3,11 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 var request = require('request');
+var mongoose = require('mongoose');
 
-var send_UserRequest = require('./model/db.service');
-// var userRequest = require('./controller/db.collection');
-
+var User = require('./user/user.collection');
+var Topic = require('./topic/topic.collection');
+var Conv = require('./conversation/conv.collection');
 
 var app = express();
 app.use(logger('dev'));
@@ -17,25 +18,11 @@ app.use(bodyParser.urlencoded({
 var server = http.createServer(app);
 
 //database url
-var db = 'mongodb://localhost:27017/users'
+var db = 'mongodb://localhost:27017/freechat'
 
-//check server running OK
-// app.get('/', (req, res) => {
-//   res.send("Home page. Server running okay.");
-// });
+mongoose.Promise = global.Promise;
+mongoose.connect(db);
 
-// app.post('/', function(req, res) {
-//   userRequest.create(req.body, function(err, user) {
-//     if(err) {     
-//       res.send('error !!!');
-//     } else {
-//       console.log(user);
-//       res.send(user);
-//     }
-//   });
-// });
-
-//set up webhook
 app.get('/webhook', (req, res) => {
   let VERIFY_TOKEN = "randomToken";
 
@@ -104,7 +91,6 @@ const handlePostback = (sender_psid, received_postback, message) => {
     callSendAPI(sender_psid, response);
   } else {
     sendMessage(sender_psid, sender_psid + " choosed: " + payload);
-    send_UserRequest(user);
   }
 };
 
