@@ -1,8 +1,10 @@
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-const express = require('express');
 var request = require('request');
 var mongoose = require('mongoose');
+const express = require('express');
+var app = express();
+// var babel = require("@babel/core");
 
 var http = require('http');
 var server = http.createServer(app);
@@ -10,10 +12,9 @@ var server = http.createServer(app);
 var User = require('./user/user.collection');
 var Topic = require('./topic/topic.collection');
 var Conv = require('./conversation/conv.collection');
-var SendUser = require('./user/user.service');
-// import {SendUser} from ('./user/user.service');
 
-var app = express();
+import {SendUser} from './user/user.service';
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
