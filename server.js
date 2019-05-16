@@ -1,16 +1,17 @@
 var logger = require('morgan');
-var http = require('http');
 var bodyParser = require('body-parser');
-var express = require('express');
+const express = require('express');
 var request = require('request');
 var mongoose = require('mongoose');
+
+var http = require('http');
+var server = http.createServer(app);
 
 var User = require('./user/user.collection');
 var Topic = require('./topic/topic.collection');
 var Conv = require('./conversation/conv.collection');
-
-import {SendUser} from ('./user/user.service');
-
+var SendUser = require('./user/user.service');
+// import {SendUser} from ('./user/user.service');
 
 var app = express();
 app.use(logger('dev'));
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-var server = http.createServer(app);
+
 
 //database url
 var db = 'mongodb://localhost:27017/freechat'

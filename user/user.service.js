@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var User = require('./user.collection');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(db);
+// mongoose.connect(db);
 app.use(bodyParser.urlencoded({
   extended: false
 }));
