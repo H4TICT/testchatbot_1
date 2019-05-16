@@ -5,7 +5,7 @@
   "main": "server.js",
   "author": "TuanHA <tuan.ha@vmodev.com>",
   "scripts": {
-    "start": "babel-node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.4",
