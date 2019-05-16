@@ -5,7 +5,7 @@
   "main": "server.js",
   "author": "TuanHA <tuan.ha@vmodev.com>",
   "scripts": {
-    "start": "babel-node server.js"
+    "start": "babel-node.js server"
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
@@ -23,6 +23,8 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
