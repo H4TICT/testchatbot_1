@@ -4,7 +4,6 @@ var request = require('request');
 var mongoose = require('mongoose');
 const express = require('express');
 var app = express();
-// var babel = require("@babel/core");
 
 var http = require('http');
 var server = http.createServer(app);
@@ -96,7 +95,7 @@ const handlePostback = (sender_psid, received_postback, message) => {
     callSendAPI(sender_psid, response);
   } else {
     sendMessage(sender_psid, sender_psid + " choosed: " + payload);
-    SendUser(app);
+    SendUser(user);
   }
 };
 
