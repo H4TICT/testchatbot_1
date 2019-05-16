@@ -20,13 +20,13 @@ app.get('/', (req, res) =>{
 });
 
 
-app.post('/conv', function(req, res) {
-    Conv.create(req.body, function send_UserRequest(err, user) {
+app.post('/conv', function sendConv(req, res) {
+    Conv.create(req.body, (err, conv) => {
       if(err) {     
         res.send('error: ' + err);
       } else {
-        console.log(user);
-        res.send(user);
+        console.log(conv);
+        res.send(conv);
       }
     });
   });

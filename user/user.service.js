@@ -19,21 +19,18 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-
-User.create(req.body, function send_User(err, user) {
-  app.post('/user', (req, res) => {
-    if(err) {     
-      res.send('error: ' + err);
-    } else {
-      console.log(user);
-      res.send(user);
-    }
+exports.SendUser = function (app) {
+  app.post('/user',(req, res) => {
+    User.create(req.body, (err, user) => {
+      if(err) {     
+        res.send('error: ' + err);
+      } else {
+        console.log(user);
+        res.send(user);
+      }
+    });
   });
-});
-
-
-
-
+};
 
   // app.set('port', process.env.PORT || 8080);
   // app.set('ip', process.env.IP || "0.0.0.0");
