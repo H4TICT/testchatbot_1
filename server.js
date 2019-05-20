@@ -13,7 +13,7 @@ var Topic = require('./topic/topic.collection');
 var Conv = require('./conversation/conv.collection');
 
 // import {SendUser} from './user/user.service';
-import {SendTopic} from './topic/topic.service';
+// import {SendTopic} from './topic/topic.service';
 
 
 
@@ -97,7 +97,7 @@ const handlePostback = (psid, received_postback, message) => {
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
   }
-  SendTopic(psid, topicname);
+  // SendTopic(psid, topicname);
 };
 
 //return topic list 
