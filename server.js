@@ -37,12 +37,9 @@ app.get('/webhook', (req, res) => {
   let challenge = req.query['hub.challenge'];
 
   if (mode && token) {
-
       if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-
           console.log('WEBHOOK_VERIFIED');
           res.status(200).send(challenge);
-
       } else {
           res.sendStatus(403);
       }
@@ -58,13 +55,13 @@ app.post('/webhook', (req, res) => {
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
 
-      let sender_psid = webhook_event.sender.id;
-      // console.log('Sender PSID: ' + sender_psid);
+      let psid = webhook_event.sender.id;
+      // console.log('Sender PSID: ' + psid);
 
       if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);
+        handleMessage(psid, webhook_event.message);
       } else if (webhook_event.postback) {
-        handlePostback(sender_psid, webhook_event.postback);
+        handlePostback(psid, webhook_event.postback);
       }
     });
     res.status(200).send('EVENT_RECEIVED');
@@ -75,30 +72,43 @@ app.post('/webhook', (req, res) => {
 
 
 //handles Messages events
-const handleMessage = (sender_psid, received_message, user) => {
+const handleMessage = (psid, received_message, user) => {
   let response;
   let message;
   if (received_message.text) {
     response = askTemplate();
     message = received_message.text;
-    sendMessage(sender_psid, message);
+    sendMessage(psid, message);
   }
-  callSendAPI(sender_psid, response);
+  callSendAPI(psid, response);
 };
 
 
+
+app.post('/topic',  (req, res) => {
+  Topic.create(req.body, function sendTopic(err, topicname, psid) {
+    if(err) {     
+      res.send('error: ' + err);
+    } else {
+      console.log(topicname);
+      res.send(topicname);
+      res.send(psid);
+    }
+  });
+});
+
 //handle Postback events
-const handlePostback = (sender_psid, received_postback, message) => {
+const handlePostback = (psid, received_postback, message) => {
   let response;
   let payload = received_postback.payload;
-  let topic = received_postback.title;
+  let topicname = received_postback.title;
 
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
-    callSendAPI(sender_psid, response);
+    callSendAPI(psid, response);
   } else {
-    sendMessage(sender_psid, sender_psid + " choosed: " + topic);
-    sendMessage(sender_psid, sender_psid + " choosed: " + payload);
+    sendMessage(psid, psid + " choosed topic: " + topicname);
+    sendTopic(topicname, psid);
   }
 };
 
@@ -132,11 +142,11 @@ const askTemplate = (text) => {
   }
 };
 
-function callSendAPI(sender_psid, response, cb = null) {
+function callSendAPI(psid, response, cb = null) {
     // Construct the message body
     let request_body = {
         "recipient": {
-            "id": sender_psid
+            "id": psid
         },
         "message": response
     };
@@ -159,7 +169,7 @@ function callSendAPI(sender_psid, response, cb = null) {
 };
 
 
-function sendMessage(sender_psid, message, cb = null) {
+function sendMessage(psid, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {

@@ -20,13 +20,14 @@ app.get('/', (req, res) =>{
 });
 
 
-app.post('/topic', function sendTopic(req, res) {
-  Topic.create(req.body, (err, topic) => {
+app.post('/topic',  (req, res) => {
+  Topic.create(req.body, function sendTopic(err, topicname, psid) {
     if(err) {     
       res.send('error: ' + err);
     } else {
-      console.log(topic);
-      res.send(topic);
+      console.log(topicname);
+      res.send(topicname);
+      res.send(psid);
     }
   });
 });
