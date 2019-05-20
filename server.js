@@ -95,9 +95,9 @@ const handleMessage = (sender_psid, received_message, user) => {
     response = askTemplate();
     message = received_message.text;
     sendMessage(sender_psid, message);
-    SendUser(user);
   }
   callSendAPI(sender_psid, response);
+  SendUser(user);
 };
 
 
