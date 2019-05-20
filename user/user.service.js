@@ -1,9 +1,7 @@
 var express = require('express');
 var app = express();
-var router = express.Router();
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
-
 
 // var http = require('http');
 // var server = http.createServer(app);
@@ -13,17 +11,17 @@ var User = require('./user.collection');
 
 mongoose.Promise = global.Promise;
 // mongoose.connect(db);
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
-router.get('/', (req, res) =>{
+app.get('/', (req, res) =>{
   res.send('Welcome to homepage');
 });
 
 
-exports.SendUser = (router)=> {
-  router.post('/user', function(req, res) {
+exports.SendUser = (app)=> {
+  app.post('/user', function(req, res) {
     User.create(req.body, function(err, user) {
       if(err) {
         res.send(err);
