@@ -75,7 +75,7 @@ app.post('/webhook', (req, res) => {
 
 
 //handles Messages events
-const handleMessage = (sender_psid, received_message) => {
+const handleMessage = (sender_psid, received_message, app) => {
   let response;
   let message;
   if (received_message.text) {
