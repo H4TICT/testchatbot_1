@@ -19,7 +19,7 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-exports.SendTopic = function (app) {
+exports.SendTopic = function (topicname, psid) {
   app.post('/',  (req, res) => {
     Topic.create(req.body, (err, topicname, psid) => {
       if(err) {     
