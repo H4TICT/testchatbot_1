@@ -75,8 +75,7 @@ app.post('/webhook', (req, res) => {
 
 
 //test SEND USER
-function SendUser(app) {
-  app.post('/user', function(req, res) {
+  app.post('/user', function SendUser(req, res) {
     User.create(req.body, function(err, user) {
       if(err) {
         res.send(err);
@@ -86,7 +85,7 @@ function SendUser(app) {
       }
     });
   });
-};
+
 
 //handles Messages events
 const handleMessage = (sender_psid, received_message, app) => {
@@ -96,7 +95,7 @@ const handleMessage = (sender_psid, received_message, app) => {
     response = askTemplate();
     message = received_message.text;
     sendMessage(sender_psid, message);
-    SendUser(app);
+    SendUser(user);
   }
   callSendAPI(sender_psid, response);
 };
