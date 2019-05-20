@@ -91,7 +91,7 @@ const handleMessage = (sender_psid, received_message, user) => {
 const handlePostback = (sender_psid, received_postback, message) => {
   let response;
   let payload = received_postback.payload;
-  let topic = received_postback.payload.buttons.title;
+  let topic = received_postback.title;
 
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
