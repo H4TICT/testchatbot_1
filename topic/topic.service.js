@@ -19,18 +19,19 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-
-app.post('/topic',  (req, res) => {
-  Topic.create(req.body, function sendTopic(err, topicname, psid) {
-    if(err) {     
-      res.send('error: ' + err);
-    } else {
-      console.log(topicname);
-      res.send(topicname);
-      res.send(psid);
-    }
+exports.SendTopic = function (topicname, psid) {
+  app.post('/topic',  (req, res) => {
+    Topic.create(req.body, (err, topicname, psid) => {
+      if(err) {     
+        res.send('error: ' + err);
+      } else {
+        console.log(topicname);
+        res.send(topicname);
+        res.send(psid);
+      }
+    });
   });
-});
+};
 
 
 

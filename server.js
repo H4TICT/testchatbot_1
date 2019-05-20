@@ -13,6 +13,7 @@ var Topic = require('./topic/topic.collection');
 var Conv = require('./conversation/conv.collection');
 
 // import {SendUser} from './user/user.service';
+import {SendTopic} from './topic/topic.service';
 
 
 
@@ -84,19 +85,6 @@ const handleMessage = (psid, received_message, user) => {
 };
 
 
-
-app.post('/topic',  (req, res) => {
-  Topic.create(req.body, function sendTopic(err, topicname, psid) {
-    if(err) {     
-      res.send('error: ' + err);
-    } else {
-      console.log(topicname);
-      res.send(topicname);
-      res.send(psid);
-    }
-  });
-});
-
 //handle Postback events
 const handlePostback = (psid, received_postback, message) => {
   let response;
@@ -108,7 +96,7 @@ const handlePostback = (psid, received_postback, message) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    sendTopic(topicname, psid);
+    SendTopic(topicname, psid);
   }
 };
 
