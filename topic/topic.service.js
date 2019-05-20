@@ -3,10 +3,8 @@ var app = express();
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
 
-let router = express.Router();
-
-var http = require('http');
-var server = http.createServer(app);
+// var http = require('http');
+// var server = http.createServer(app);
 var db = 'mongodb://localhost:27017/freechat'
 
 var Topic = require('./topic.collection');
@@ -21,8 +19,8 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-exports.SendTopic = function (router) {
-  router.post('/',  (req, res) => {
+exports.SendTopic = function (app) {
+  app.post('/',  (req, res) => {
     Topic.create(req.body, (err, topicname, psid) => {
       if(err) {     
         res.send('error: ' + err);
@@ -40,4 +38,4 @@ exports.SendTopic = function (router) {
   // app.set('port', process.env.PORT || 8080);
   // app.set('ip', process.env.IP || "0.0.0.0");
 
-  server.listen(app.get('port'), app.get('ip'));
+  // server.listen(app.get('port'), app.get('ip'));
