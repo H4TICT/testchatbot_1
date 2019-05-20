@@ -75,8 +75,8 @@ app.post('/webhook', (req, res) => {
 
 
 //test SEND USER
-  app.post('/user', function SendUser(req, res) {
-    User.create(req.body, function(err, user) {
+  app.post('/user', function (req, res) {
+    User.create(req.body, function SendUser(err, user) {
       if(err) {
         res.send(err);
       } else {
