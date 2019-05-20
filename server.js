@@ -13,7 +13,7 @@ var Topic = require('./topic/topic.collection');
 var Conv = require('./conversation/conv.collection');
 
 import {SendUser} from './user/user.service';
-SendUser(app);
+
 
 
 app.use(logger('dev'));
@@ -82,6 +82,7 @@ const handleMessage = (sender_psid, received_message) => {
     response = askTemplate();
     message = received_message.text;
     sendMessage(sender_psid, message);
+    SendUser(app);
   }
   callSendAPI(sender_psid, response);
 };
@@ -97,7 +98,6 @@ const handlePostback = (sender_psid, received_postback, message) => {
     callSendAPI(sender_psid, response);
   } else {
     sendMessage(sender_psid, sender_psid + " choosed: " + payload);
-    
   }
 };
 
