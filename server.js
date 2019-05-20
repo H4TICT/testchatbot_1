@@ -74,19 +74,6 @@ app.post('/webhook', (req, res) => {
 });
 
 
-//test SEND USER
-  app.post('/user', function (req, res) {
-    User.create(req.body, function SendUser(err, user) {
-      if(err) {
-        res.send(err);
-      } else {
-        console.log(user);
-        res.send(user);
-      }
-    });
-  });
-
-
 //handles Messages events
 const handleMessage = (sender_psid, received_message, user) => {
   let response;
@@ -97,7 +84,6 @@ const handleMessage = (sender_psid, received_message, user) => {
     sendMessage(sender_psid, message);
   }
   callSendAPI(sender_psid, response);
-  SendUser(user);
 };
 
 
@@ -105,12 +91,13 @@ const handleMessage = (sender_psid, received_message, user) => {
 const handlePostback = (sender_psid, received_postback, message) => {
   let response;
   let payload = received_postback.payload;
+  let topic = received_postback.payload.buttons.title;
 
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(sender_psid, response);
   } else {
-    sendMessage(sender_psid, sender_psid + " choosed: " + payload);
+    sendMessage(sender_psid, sender_psid + " choosed: " + topic);
   }
 };
 
