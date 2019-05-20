@@ -12,7 +12,7 @@ var User = require('./user/user.collection');
 var Topic = require('./topic/topic.collection');
 var Conv = require('./conversation/conv.collection');
 
-import {SendUser} from './user/user.service';
+// import {SendUser} from './user/user.service';
 
 
 
@@ -73,6 +73,20 @@ app.post('/webhook', (req, res) => {
   };
 });
 
+
+//test SEND USER
+function SendUser(app) {
+  app.post('/user', function(req, res) {
+    User.create(req.body, function(err, user) {
+      if(err) {
+        res.send(err);
+      } else {
+        console.log(user);
+        res.send(user);
+      }
+    });
+  });
+};
 
 //handles Messages events
 const handleMessage = (sender_psid, received_message, app) => {
