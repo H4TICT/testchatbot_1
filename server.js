@@ -91,7 +91,7 @@ const handleMessage = (psid, received_message, user) => {
 
 
 //handle Postback events
-const handlePostback = (psid, received_postback) => {
+const handlePostback = (app, psid, received_postback) => {
   let response;
   let payload = received_postback.payload;
   let topicname = received_postback.title;
@@ -102,7 +102,7 @@ const handlePostback = (psid, received_postback) => {
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
   }
-  SendTopic(topicname, psid);
+  SendTopic(app);
 };
 
 //return topic list 
