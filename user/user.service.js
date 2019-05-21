@@ -3,14 +3,14 @@ var app = express();
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
 
-// var http = require('http');
-// var server = http.createServer(app);
-// var db = 'mongodb://localhost:27017/freechat'
+var http = require('http');
+var server = http.createServer(app);
+var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
 
 var User = require('./user.collection');
 
 mongoose.Promise = global.Promise;
-// mongoose.connect(db);
+mongoose.connect(db);
 app.use(bodyParser.urlencoded({
   extended: false
 }));

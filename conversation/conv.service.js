@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 
 var http = require('http');
 var server = http.createServer(app);
-var db = 'mongodb://localhost:27017/freechat'
+var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
+
 
 var Conv = require('./conv.collection');
 
@@ -31,7 +32,7 @@ app.post('/conv', function sendConv(req, res) {
     });
   });
 
-  app.set('port', process.env.PORT || 8080);
-  app.set('ip', process.env.IP || "0.0.0.0");
+  // app.set('port', process.env.PORT || 8080);
+  // app.set('ip', process.env.IP || "0.0.0.0");
 
-  server.listen(app.get('port'), app.get('ip'));
+  // server.listen(app.get('port'), app.get('ip'));
