@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
+var router = express.Router();
 
 // var http = require('http');
 // var server = http.createServer(app);
@@ -12,27 +13,28 @@ var Conv = require('./conv.collection');
 
 mongoose.Promise = global.Promise;
 
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+// app.use(bodyParser.urlencoded({
+//   extended: false
+// }));
 
-app.get('/', (req, res) =>{
-    res.send('Welcome to homepage');
+router.get('/', (req, res) =>{
+  res.json({ msg: 'Conv works' });
 });
 
 
-app.post('/conv', function sendConv(req, res) {
+router.post('/conv', function sendConv(req, res) {
     Conv.create(req.body, (err, conv) => {
       if(err) {     
         res.send('error: ' + err);
       } else {
         console.log(conv);
-        res.send(conv);
+        res.json(conv);
       }
     });
   });
 
-  app.set('port', process.env.PORT || 8080);
-  app.set('ip', process.env.IP || "0.0.0.0");
+  module.exports = router;
+  // app.set('port', process.env.PORT || 8080);
+  // app.set('ip', process.env.IP || "0.0.0.0");
 
-  server.listen(app.get('port'), app.get('ip'));
+  // server.listen(app.get('port'), app.get('ip'));

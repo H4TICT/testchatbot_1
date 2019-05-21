@@ -2,9 +2,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TopicSchema = new Schema ({
-    topicid: {type: Number, nullable: false, primary: true},
-    psid: {type: Number, nullable: false},
-    topicname: {type: String, nullable: false}
+    topicid: {
+        type: Number, 
+        required: true, 
+        primary: true
+    },
+    psid: {
+        type: Number, 
+        required: true
+    },
+    topicname: {
+        type: String, 
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Topic', TopicSchema);

@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose'); 
-var bodyParser = require('body-parser');
-
+// var bodyParser = require('body-parser');
+var router = express.Router();
 // var http = require('http');
 // var server = http.createServer(app);
 // var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
@@ -12,28 +12,29 @@ var bodyParser = require('body-parser');
 var Topic = require('./topic.collection');
 
 mongoose.Promise = global.Promise;
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+// app.use(bodyParser.urlencoded({
+//   extended: false
+// }));
 
-app.get('/', (req, res) =>{
+router.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-exports.SendTopic = function (topicname, psid) {
-  app.post('/topic',  (req, res) => {
+exports.SendTopic = function () {
+  router.post('/topic',  (req, res) => {
     Topic.create(req.body, (err, topicname, psid) => {
       if(err) {     
         res.send('error: ' + err);
       } else {
         console.log(topicname);
-        res.send(topicname);
-        res.send(psid);
+        res.json(topicname);
+        res.json(psid);
       }
     });
   });
 };
 
+module.exports = router;
 
 
   // app.set('port', process.env.PORT || 8080);

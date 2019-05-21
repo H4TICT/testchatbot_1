@@ -12,6 +12,10 @@ var User = require('./user/user.collection');
 var Topic = require('./topic/topic.collection');
 var Conv = require('./conversation/conv.collection');
 
+app.use('/user/user.conllection', User);
+app.use('/topic/tpic.conllection', Topic);
+app.use('/conversation/user.conllection', Conv);
+
 // import {SendUser} from './user/user.service';
 import {SendTopic} from './topic/topic.service';
 
@@ -96,7 +100,7 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    // SendTopic(psid, topicname);
+    SendTopic();
   }
 };
 
