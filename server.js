@@ -17,13 +17,13 @@ app.use('/topic/tpic.conllection', Topic);
 app.use('/conversation/user.conllection', Conv);
 
 import {SendTopic} from './topic/topic.service';
-const SendtheTopic = SendTopic();
+const SendtheTopic = SendTopic;
 
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }));
 
 
@@ -86,6 +86,17 @@ const handleMessage = (psid, received_message) => {
     sendMessage(psid, message);
   }
   callSendAPI(psid, response);
+  app.post('/topic',  (req, res) => {
+    Topic.create(req.body, (err, topicname, psid) => {
+      if(err) {     
+        res.send('error: ' + err);
+      } else {
+        console.log(topicname);
+        res.send(topicname);
+        res.send(psid);
+      }
+    });
+  });
 };
 
 
