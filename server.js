@@ -86,17 +86,7 @@ const handleMessage = (psid, received_message) => {
     sendMessage(psid, message);
   }
   callSendAPI(psid, response);
-  app.post('/topic',  (req, res) => {
-    Topic.create(req.body, (err, topicname, psid) => {
-      if(err) {     
-        res.send('error: ' + err);
-      } else {
-        console.log(topicname);
-        res.send(topicname);
-        res.send(psid);
-      }
-    });
-  });
+  
 };
 
 
@@ -111,7 +101,17 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendtheTopic;
+    app.post('/topic',  (req, res) => {
+      Topic.create(req.body, (err, topicname, psid) => {
+        if(err) {     
+          res.send('error: ' + err);
+        } else {
+          console.log(topicname);
+          res.send(topicname);
+          res.send(psid);
+        }
+      });
+    });
   }
 };
 
