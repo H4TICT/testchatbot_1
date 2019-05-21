@@ -100,7 +100,6 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendTopic();
   }
 };
 
