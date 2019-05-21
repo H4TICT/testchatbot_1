@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 // var http = require('http');
 // var server = http.createServer(app);
-var db = 'mongodb://localhost:27017/freechat'
+var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
 
 var Topic = require('./topic.collection');
 
