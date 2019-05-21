@@ -35,7 +35,7 @@ exports.SendTopic = function (topicname, psid) {
 
 
 
-  // app.set('port', process.env.PORT || 8080);
-  // app.set('ip', process.env.IP || "0.0.0.0");
+  app.set('port', process.env.PORT || 8080);
+  app.set('ip', process.env.IP || "0.0.0.0");
 
-  // server.listen(app.get('port'), app.get('ip'));
+  server.listen(app.get('port'), app.get('ip'));
