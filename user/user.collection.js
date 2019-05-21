@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema ({
     UID: {
         type: Number,
-        nullable: false,
+        required: true,
         primary: true, 
         unique: true
     },

@@ -27,8 +27,8 @@ exports.SendTopic = function () {
         res.send('error: ' + err);
       } else {
         console.log(topicname);
-        res.json(topicname);
-        res.json(psid);
+        res.send(topicname);
+        res.send(psid);
       }
     });
   });

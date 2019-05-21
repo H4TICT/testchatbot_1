@@ -28,7 +28,7 @@ exports.SendUser = function(){
         res.send(err);
       } else {
         console.log(user);
-        res.json(user);
+        res.send(user);
       }
     });
   });

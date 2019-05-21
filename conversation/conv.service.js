@@ -18,7 +18,7 @@ mongoose.Promise = global.Promise;
 // }));
 
 router.get('/', (req, res) =>{
-  res.json({ msg: 'Conv works' });
+  res.send('Conv works');
 });
 
 
@@ -28,7 +28,7 @@ router.post('/conv', function sendConv(req, res) {
         res.send('error: ' + err);
       } else {
         console.log(conv);
-        res.json(conv);
+        res.send(conv);
       }
     });
   });
