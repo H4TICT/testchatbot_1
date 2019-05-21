@@ -21,7 +21,7 @@ router.get('/', (req, res) =>{
   res.send('Welcome to homepage');
 });
 
-exports.SendTopic = function () {
+exports.SendTopic = function (topicname, psid) {
   router.post('/topic',  (req, res) => {
     Topic.create(req.body, (err, topicname, psid) => {
       if(err) {     

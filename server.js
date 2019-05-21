@@ -102,7 +102,7 @@ const handlePostback = (psid, received_postback) => {
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
   }
-  SendTopic();
+  SendTopic(topicname, psid);
 };
 
 //return topic list 
