@@ -78,7 +78,7 @@ app.post('/webhook', (req, res) => {
 
 
 //handles Messages events
-const handleMessage = (psid, received_message, Topic) => {
+const handleMessage = (psid, received_message) => {
   let response;
   let message;
   if (received_message.text) {
@@ -87,7 +87,6 @@ const handleMessage = (psid, received_message, Topic) => {
     sendMessage(psid, message);
   }
   callSendAPI(psid, response);
-  SendTopic(Topic, psid);
 };
 
 
@@ -103,6 +102,7 @@ const handlePostback = (psid, received_postback) => {
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
   }
+  {SendTopic};
 };
 
 //return topic list 
