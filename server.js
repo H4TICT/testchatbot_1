@@ -86,7 +86,7 @@ const handleMessage = (psid, received_message, user) => {
 
 
 //handle Postback events
-const handlePostback = (psid, received_postback, message) => {
+const handlePostback = (psid, received_postback) => {
   let response;
   let payload = received_postback.payload;
   let topicname = received_postback.title;

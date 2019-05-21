@@ -12,7 +12,7 @@ var Topic = require('./topic.collection');
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }));
 
 app.get('/', (req, res) =>{
@@ -35,7 +35,7 @@ exports.SendTopic = function (topicname, psid) {
 
 
 
-  app.set('port', process.env.PORT || 8080);
-  app.set('ip', process.env.IP || "0.0.0.0");
+  // app.set('port', process.env.PORT || 8080);
+  // app.set('ip', process.env.IP || "0.0.0.0");
 
-  server.listen(app.get('port'), app.get('ip'));
+  // server.listen(app.get('port'), app.get('ip'));
