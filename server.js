@@ -29,8 +29,9 @@ app.use(bodyParser.urlencoded({
 
 
 //database url
-// var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-var db = 'mongodb://localhost:27017/freechat';
+var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
+// var db = 'mongodb://localhost:27017/freechat';
+
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
