@@ -21,7 +21,6 @@ router.get('/', (req, res) =>{
   res.send('Conv works');
 });
 
-
 router.post('/conv', function sendConv(req, res) {
     Conv.create(req.body, (err, conv) => {
       if(err) {     

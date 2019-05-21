@@ -1,23 +1,24 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose'); 
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var router = express.Router();
+
 // var http = require('http');
 // var server = http.createServer(app);
 // var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
 // mongoose.connect(db);
 
-
 var Topic = require('./topic.collection');
 
 mongoose.Promise = global.Promise;
+
 // app.use(bodyParser.urlencoded({
 //   extended: false
 // }));
 
 router.get('/', (req, res) =>{
-    res.send('Welcome to homepage');
+  res.send('Welcome to homepage');
 });
 
 exports.SendTopic = function () {

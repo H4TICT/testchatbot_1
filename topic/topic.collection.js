@@ -5,7 +5,8 @@ var TopicSchema = new Schema ({
     topicid: {
         type: Number, 
         required: true, 
-        primary: true
+        primary: true, 
+        unique: true
     },
     psid: {
         type: Number, 

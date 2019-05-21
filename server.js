@@ -10,7 +10,7 @@ var server = http.createServer(app);
 
 var User = require('./user/user.collection');
 var Topic = require('./topic/topic.collection');
-var Conv = require('./conversation/conv.collection');
+var Conv = require('./conv/conv.collection');
 
 app.use('/user/user.conllection', User);
 app.use('/topic/tpic.conllection', Topic);
@@ -29,8 +29,8 @@ app.use(bodyParser.urlencoded({
 
 
 //database url
-var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-
+// var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
+var db = 'mongodb://localhost:27017/freechat';
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
