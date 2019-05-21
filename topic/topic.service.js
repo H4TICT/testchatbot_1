@@ -17,12 +17,12 @@ mongoose.Promise = global.Promise;
 //   extended: false
 // }));
 
-app.get('/', (req, res) =>{
+router.get('/', (req, res) =>{
   res.send('Welcome to homepage');
 });
 
-exports.SendTopic = function (app) {
-  app.post('/topic',  (req, res) => {
+exports.SendTopic = function (router) {
+  router.post('/topic',  (req, res) => {
     Topic.create(req.body, (err, topicname, psid) => {
       if(err) {     
         res.send('error: ' + err);
@@ -35,7 +35,7 @@ exports.SendTopic = function (app) {
   });
 };
 
-module.exports = app;
+module.exports = router;
 
 
   // app.set('port', process.env.PORT || 8080);

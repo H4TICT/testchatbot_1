@@ -18,7 +18,7 @@ app.use('/conversation/user.conllection', Conv);
 
 // import {SendUser} from './user/user.service';
 import {SendTopic} from './topic/topic.service';
-
+var router = express.Router();
 
 
 app.use(logger('dev'));
@@ -101,7 +101,7 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendTopic;
+    SendTopic(router);
   }
 };
 
