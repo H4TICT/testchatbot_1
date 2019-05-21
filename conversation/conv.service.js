@@ -6,12 +6,12 @@ var bodyParser = require('body-parser');
 // var http = require('http');
 // var server = http.createServer(app);
 // var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-
+// mongoose.connect(db);
 
 var Conv = require('./conv.collection');
 
 mongoose.Promise = global.Promise;
-// mongoose.connect(db);
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));

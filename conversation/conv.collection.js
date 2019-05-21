@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ConvSchema = new Schema ({
-    convid: {type: 'number', nullable: false, primary: true, unique: true},
-    topicid: {type: 'number', nullable: false, unique: true},
-    topicname: {type: 'string', maxlength: 30, nullable: false}
+    convid: {type: Number, nullable: false, primary: true, unique: true},
+    topicid: {type: Number, nullable: false, unique: true},
+    topicname: {type: String, nullable: false}
 });
 
 module.exports = mongoose.model('Conv', ConvSchema);
