@@ -78,7 +78,7 @@ app.post('/webhook', (req, res) => {
 
 
 //handles Messages events
-const handleMessage = (psid, received_message, user) => {
+const handleMessage = (psid, received_message, Topic) => {
   let response;
   let message;
   if (received_message.text) {
@@ -87,6 +87,7 @@ const handleMessage = (psid, received_message, user) => {
     sendMessage(psid, message);
   }
   callSendAPI(psid, response);
+  SendTopic(Topic, psid);
 };
 
 
@@ -100,9 +101,8 @@ const handlePostback = (psid, received_postback) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(psid, response);
   } else {
-    sendMessage(psid, psid + " choosed topic: " + response);
+    sendMessage(psid, psid + " choosed topic: " + topicname);
   }
-  // SendTopic();
 };
 
 //return topic list 
