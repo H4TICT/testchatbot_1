@@ -16,6 +16,10 @@ var ConvSchema = new Schema ({
     topicname: {
         type: String, 
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 
