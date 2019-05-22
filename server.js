@@ -80,16 +80,16 @@ app.post('/webhook', (req, res) => {
 });
 
 
-// app.post('/topic', async (req, res) => {
-//   try {
-//     const topic = await Topic.create(req.body);
-//     res.send(topic);
-//     console.log('topic: '+topic);
-//   }
-//   catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
+const SendTopic = app.post('/topic', async (req, res) => {
+  try {
+    const topic = await Topic.create(req.body);
+    res.send(topic);
+    console.log('topic: '+topic);
+  }
+  catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 
 //handle Postback events
@@ -103,6 +103,7 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
+    SendTopic;
   }
 };
 
