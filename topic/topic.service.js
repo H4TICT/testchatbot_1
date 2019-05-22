@@ -9,7 +9,8 @@ const Topic = require('./topic.collection');
 mongoose.Promise = global.Promise;
 
 // module.exports = function (app) {
-const SendTopic = app.post('/topic', async (req, res) => {
+module.exports = function(app){ 
+  app.post('/topic', async (req, res) => {
   try {
     console.log(req.body);
     const topic = await Topic.create(req.body);
@@ -27,6 +28,7 @@ const SendTopic = app.post('/topic', async (req, res) => {
   //   }
   // });
 });
+};
 // };
 
-module.exports = SendTopic;
+// module.exports = SendTopic;
