@@ -4,24 +4,13 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var router = express.Router();
 
-// var http = require('http');
-// var server = http.createServer(app);
-// var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-// mongoose.connect(db);
-
 var Topic = require('./topic.collection');
 
 mongoose.Promise = global.Promise;
 
-// app.use(bodyParser.urlencoded({
-//   extended: false
-// }));
 
-app.get('/', (req, res) =>{
-  res.send('Welcome to homepage');
-});
 
-exports.SendTopic = function (app) {
+exports.SendTopic = function () {
   app.post('/topic',  (req, res) => {
     Topic.create(req.body, (err, topicname, psid) => {
       if(err) {     
@@ -35,10 +24,3 @@ exports.SendTopic = function (app) {
   });
 };
 
-// module.exports = router;
-
-
-  // app.set('port', process.env.PORT || 8080);
-  // app.set('ip', process.env.IP || "0.0.0.0");
-
-  // server.listen(app.get('port'), app.get('ip'));

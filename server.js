@@ -17,7 +17,7 @@ app.use('/topic/tpic.conllection', Topic);
 app.use('/conversation/user.conllection', Conv);
 
 import {SendTopic} from './topic/topic.service';
-const SendtheTopic = SendTopic;
+
 
 
 app.use(logger('dev'));
@@ -86,7 +86,6 @@ const handleMessage = (psid, received_message) => {
     sendMessage(psid, message);
   }
   callSendAPI(psid, response);
-  
 };
 
 
@@ -101,17 +100,7 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    app.post('/topic',  (req, res) => {
-      Topic.create(req.body, (err, topicname, psid) => {
-        if(err) {     
-          res.send('error: ' + err);
-        } else {
-          console.log(topicname);
-          res.send(topicname);
-          res.send(psid);
-        }
-      });
-    });
+    SendTopic();
   }
 };
 
