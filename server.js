@@ -13,10 +13,10 @@ var Topic = require('./topic/topic.collection');
 var Conv = require('./conv/conv.collection');
 
 
-// const topic = require('./topic/topic.service');
+const topic = require('./topic/topic.service');
 
 // app.use('/user/user.conllection', User);
-// app.use('/topic/topic.service', topic);
+app.use('/topic/topic.service', topic);
 // app.use('/conversation/user.conllection', Conv);
 
 
@@ -81,16 +81,16 @@ app.post('/webhook', (req, res) => {
   };
 });
 
-app.post('/topic', (req, res) => {
-  Topic.create(req.body, (err, topic) => {
-    if(err) {
-      res.send(err);
-    } else {
-      console.log(topic);
-      res.send(topic);
-    }
-  });
-});
+// app.post('/topic', (req, res) => {
+//   Topic.create(req.body, (err, topic) => {
+//     if(err) {
+//       res.send(err);
+//     } else {
+//       console.log(topic);
+//       res.send(topic);
+//     }
+//   });
+// });
 
 
 //handle Postback events

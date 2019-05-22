@@ -1,5 +1,6 @@
 var express = require('express');
-var app = express();
+// var app = express();
+var router = express.Router();
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
 
@@ -21,7 +22,7 @@ mongoose.Promise = global.Promise;
 
 
 
-app.post('/topic', (req, res) => {
+router.post('/topic', (req, res) => {
   Topic.create(req.body, (err, topic) => {
     if(err) {
       res.send(err);
@@ -32,7 +33,7 @@ app.post('/topic', (req, res) => {
   });
 });
 
-
+module.exports = router;
 
 // app.set('port', process.env.PORT || 8080);
 //   app.set('ip', process.env.IP || "0.0.0.0");
