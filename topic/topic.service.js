@@ -2,9 +2,7 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
-var router = express.Router();
 
-//load Topic collection
 var Topic = require('./topic.collection');
 
 // var db = 'mongodb://localhost:27017/freechat'
@@ -25,15 +23,17 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-// exports.SendTopic = function (app) {
-  app.post('/topic', (req, res) => {
-    Topic.create(req.body, (topic) => {
-      res.send(topic); 
-    });
+app.post('/topic', function(req, res) {
+  Topic.create(req.body, function(err, topic) {
+    if(err) {
+      res.send(err);
+    } else {
+      console.log(topic);
+      res.send(topic);
+    }
   });
-// };
+});
 
-module.exports = router;
 
 
 // app.set('port', process.env.PORT || 8080);
