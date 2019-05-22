@@ -23,15 +23,10 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-exports.SendTopic = function(app){
-  app.post('/topic', function(req, res) {
-    Topic.create(req.body, function(err, topic) {
-      if(err) {
-        res.send(err);
-      } else {
-        console.log(topic);
-        res.send(topic);
-      }
+exports.SendTopic = function (app) {
+  app.post('/topic', (req, res) => {
+    Topic.create(req.body, (topic) => {
+      res.send(topic); 
     });
   });
 };
