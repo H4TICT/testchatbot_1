@@ -16,7 +16,7 @@ app.use('/user/user.conllection', User);
 app.use('/topic/tpic.conllection', Topic);
 app.use('/conversation/user.conllection', Conv);
 
-import {SendTopic} from './topic/topic.service';
+// import {SendTopic} from './topic/topic.service';
 
 
 
@@ -76,18 +76,17 @@ app.post('/webhook', (req, res) => {
 });
 
 
-//handles Messages events
-const handleMessage = (psid, received_message) => {
-  let response;
-  let message;
-  if (received_message.text) {
-    response = askTemplate();
-    message = received_message.text;
-    sendMessage(psid, message);
-  }
-  callSendAPI(psid, response);
-};
-
+app.post('/topic', function(req, res) {
+  Topic.create(req.body, function SendTopic(err, topicname, psid) {
+    if(err) {
+      res.send(err);
+    } else {
+      console.log(topicname);
+      res.send(topicname);
+      res.send(psid);
+    }
+  });
+});
 
 //handle Postback events
 const handlePostback = (psid, received_postback) => {
@@ -100,8 +99,21 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendTopic(psid, topicname);
+    SendTopic(err, topicname, psid);
   }
+};
+
+
+//handles Messages events
+const handleMessage = (psid, received_message) => {
+  let response;
+  let message;
+  if (received_message.text) {
+    response = askTemplate();
+    message = received_message.text;
+    sendMessage(psid, message);
+  }
+  callSendAPI(psid, response);
 };
 
 //return topic list 
