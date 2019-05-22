@@ -89,7 +89,7 @@ const handlePostback = (psid, received_postback, router) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendTopic(router);
+    SendTopic();
   }
 };
 
