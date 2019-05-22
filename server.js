@@ -75,15 +75,15 @@ app.post('/webhook', (req, res) => {
   };
 });
 
-function SendTopic(topicname, psid){
+function SendTopic(topicname){
   app.post('/topic', function(req, res) {
-    Topic.create(req.body, (err, topicname, psid) => {
+    Topic.create(req.body, (err, topicname) => {
       if(err) {
         res.send(err);
       } else {
         console.log(topicname);
         res.send(topicname);
-        res.send(psid);
+        // res.send(psid);
       }
     });
   });
@@ -99,8 +99,8 @@ const handlePostback = (psid, received_postback) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(psid, response);
   } else {
-    sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendTopic(topicname, psid);
+    // sendMessage(psid, psid + " choosed topic: " + topicname);
+    SendTopic(psid, topicname);
   }
 };
 
