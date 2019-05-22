@@ -4,7 +4,6 @@ const request = require('request');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-const router = express.Router();
 
 const http = require('http');
 const server = http.createServer(app);
@@ -16,7 +15,7 @@ const Conv = require('./conv/conv.collection');
 
 const SendTopic = require('./topic/topic.service');
 
-app.use('/topic', SendTopic);
+app.use('/', SendTopic);
 // SendTopic(app);
 
 
@@ -80,18 +79,17 @@ app.post('/webhook', (req, res) => {
   };
 });
 
-// app.post('/topic', (req, res) => {
-//   Topic.create(req.body, (err, topic) => {
-//     if(err) {
-//       res.send(err);
-//     } else {
-//       console.log(topic);
-//       res.send(topic);
-//     }
-//   });
+
+// app.post('/topic', async (req, res) => {
+//   try {
+//     const topic = await Topic.create(req.body);
+//     res.send(topic);
+//     console.log('topic: '+topic);
+//   }
+//   catch (err) {
+//     res.status(500).send(err);
+//   }
 // });
-
-
 
 
 //handle Postback events
