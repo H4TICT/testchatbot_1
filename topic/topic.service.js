@@ -24,13 +24,13 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-exports.SendTopic = function (app) {
+// exports.SendTopic = function (app) {
   app.post('/topic', (req, res) => {
     Topic.create(req.body, (topic) => {
       res.send(topic); 
     });
   });
-};
+// };
 
 
 
