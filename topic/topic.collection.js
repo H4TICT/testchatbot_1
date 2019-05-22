@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 var TopicSchema = new Schema ({
     topicid: {
+        ObjectId,
         type: Number,
         // required: true, 
         primary: true, 
