@@ -36,6 +36,10 @@ var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
+app.get('/', (req, res) => {
+  res.send("Home page. Server running okay.");
+});
+
 app.get('/webhook', (req, res) => {
   let VERIFY_TOKEN = "randomToken";
 
@@ -46,7 +50,6 @@ app.get('/webhook', (req, res) => {
   if (mode && token) {
       if (mode === 'subscribe' && token === VERIFY_TOKEN) {
           console.log('WEBHOOK_VERIFIED');
-          console.log('server running OK');
           res.status(200).send(challenge);
       } else {
           res.sendStatus(403);
