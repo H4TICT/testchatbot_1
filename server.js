@@ -13,12 +13,12 @@ var Topic = require('./topic/topic.collection');
 var Conv = require('./conv/conv.collection');
 
 
-const topic = require('./topic/topic.service');
+const SendTopic = require('./topic/topic.service');
 
 // app.use('/user/user.conllection', User);
-app.use('/topic/topic.service', topic);
+// app.use('/topic/topic.service', topic);
 // app.use('/conversation/user.conllection', Conv);
-
+SendTopic(app);
 
 
 
