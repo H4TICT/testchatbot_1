@@ -1,21 +1,22 @@
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var request = require('request');
-var mongoose = require('mongoose');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const request = require('request');
+const mongoose = require('mongoose');
 const express = require('express');
-var app = express();
+const app = express();
+const router = express.Router();
 
-var http = require('http');
-var server = http.createServer(app);
+const http = require('http');
+const server = http.createServer(app);
 
-var User = require('./user/user.collection');
-var Topic = require('./topic/topic.collection');
-var Conv = require('./conv/conv.collection');
+const User = require('./user/user.collection');
+const Topic = require('./topic/topic.collection');
+const Conv = require('./conv/conv.collection');
 
 
-// var SendTopic = require('./topic/topic.service');
+const SendTopic = require('./topic/topic.service');
 
-// app.use('/', SendTopic);
+app.use('/topic', SendTopic);
 // SendTopic(app);
 
 
@@ -28,8 +29,8 @@ app.use(bodyParser.urlencoded({
 
 
 //database url
-var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-// var db = 'mongodb://localhost:27017/freechat';
+const db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
+// const db = 'mongodb://localhost:27017/freechat';
 
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
@@ -90,16 +91,7 @@ app.post('/webhook', (req, res) => {
 //   });
 // });
 
-app.post('/topic', async (req, res) => {
-  try {
-    const topic = await Topic.create(req.body);
-    res.send(topic);
-    console.log('topic: '+topic);
-  }
-  catch (err) {
-    res.status(500).send(err);
-  }
-});
+
 
 
 //handle Postback events
