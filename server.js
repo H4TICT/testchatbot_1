@@ -84,7 +84,6 @@ const handleMessage = (psid, received_message) => {
     response = askTemplate();
     message = received_message.text;
     sendMessage(psid, message);
-    SendTopic();
   }
   callSendAPI(psid, response);
 };
@@ -101,6 +100,7 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
+    SendTopic(psid, topicname);
   }
 };
 
