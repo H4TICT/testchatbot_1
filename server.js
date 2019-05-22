@@ -75,18 +75,19 @@ app.post('/webhook', (req, res) => {
   };
 });
 
-
-app.post('/topic', function(req, res) {
-  Topic.create(req.body, function SendTopic(err, topicname, psid) {
-    if(err) {
-      res.send(err);
-    } else {
-      console.log(topicname);
-      res.send(topicname);
-      res.send(psid);
-    }
+function SendTopic(topicname, psid){
+  app.post('/topic', function(req, res) {
+    Topic.create(req.body, (err, topicname, psid) => {
+      if(err) {
+        res.send(err);
+      } else {
+        console.log(topicname);
+        res.send(topicname);
+        res.send(psid);
+      }
+    });
   });
-});
+};
 
 //handle Postback events
 const handlePostback = (psid, received_postback) => {
@@ -99,7 +100,7 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendTopic(err, topicname, psid);
+    SendTopic(topicname, psid);
   }
 };
 
