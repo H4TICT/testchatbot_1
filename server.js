@@ -13,9 +13,9 @@ var Topic = require('./topic/topic.collection');
 var Conv = require('./conv/conv.collection');
 
 
-var SendTopic = require('./topic/topic.service');
+// var SendTopic = require('./topic/topic.service');
 
-app.use('/', SendTopic);
+// app.use('/', SendTopic);
 // SendTopic(app);
 
 
