@@ -3,18 +3,18 @@ var Schema = mongoose.Schema;
 
 var TopicSchema = new Schema ({
     topicid: {
-        type: Number, 
-        required: true, 
-        primary: true, 
-        unique: true
+        type: Number
+        // required: true, 
+        // primary: true, 
+        // unique: true
     },
     psid: {
-        type: Number, 
-        required: true
+        type: Number
+        // required: true
     },
     topicname: {
-        type: String, 
-        required: true
+        type: String 
+        // required: true
     }
 });
 
