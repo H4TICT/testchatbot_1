@@ -25,8 +25,8 @@ const SendTopic = app.post('/topic', (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      console.log(topic);
       res.send(topic);
+      console.log(topic);
     }
   });
 });
