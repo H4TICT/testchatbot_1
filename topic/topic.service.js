@@ -1,6 +1,6 @@
 const express = require('express');
-// const app = express();
-const router = express.Router();
+const app = express();
+// const router = express.Router();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
@@ -9,7 +9,7 @@ const Topic = require('./topic.collection');
 mongoose.Promise = global.Promise;
 
 // module.exports = function (app) {
-const SendTopic = router.post('/topic', async (req, res) => {
+const SendTopic = app.post('/topic', async (req, res) => {
   try {
     console.log(req.body);
     const topic = await Topic.create(req.body);
