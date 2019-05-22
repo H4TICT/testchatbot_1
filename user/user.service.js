@@ -17,25 +17,22 @@ mongoose.Promise = global.Promise;
 //   extended: false
 // }));
 
-router.get('/', (req, res) =>{
-  res.send('Welcome to homepage');
+
+
+app.post('/user', function(req, res) {
+  User.create(req.body, function(err, user) {
+    if(err) {
+      res.send(err);
+    } else {
+      console.log(user);
+      res.send(user);
+    }
+  });
 });
 
-exports.SendUser = function(){
-  router.post('/user', function(req, res) {
-    User.create(req.body, function(err, user) {
-      if(err) {
-        res.send(err);
-      } else {
-        console.log(user);
-        res.send(user);
-      }
-    });
-  });
-};
 
 
-module.exports = router;
+// module.exports = router;
   // app.set('port', process.env.PORT || 8080);
   // app.set('ip', process.env.IP || "0.0.0.0");
 

@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose'); 
 var bodyParser = require('body-parser');
-var router = express.Router();
+// var router = express.Router();
 
 // var http = require('http');
 // var server = http.createServer(app);
@@ -17,22 +17,19 @@ mongoose.Promise = global.Promise;
 //   extended: false
 // }));
 
-router.get('/', (req, res) =>{
-  res.send('Conv works');
+
+app.post('/conv', function sendConv(req, res) {
+  Conv.create(req.body, (err, conv) => {
+    if(err) {     
+      res.send('error: ' + err);
+    } else {
+      console.log(conv);
+      res.send(conv);
+    }
+  });
 });
 
-router.post('/conv', function sendConv(req, res) {
-    Conv.create(req.body, (err, conv) => {
-      if(err) {     
-        res.send('error: ' + err);
-      } else {
-        console.log(conv);
-        res.send(conv);
-      }
-    });
-  });
-
-  module.exports = router;
+  // module.exports = router;
   // app.set('port', process.env.PORT || 8080);
   // app.set('ip', process.env.IP || "0.0.0.0");
 

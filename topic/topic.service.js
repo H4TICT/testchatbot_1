@@ -19,9 +19,7 @@ mongoose.Promise = global.Promise;
 //   extended: true
 // }));
 
-app.get('/', (req, res) =>{
-    res.send('Welcome to homepage');
-});
+
 
 app.post('/topic', (req, res) => {
   Topic.create(req.body, (err, topic) => {
