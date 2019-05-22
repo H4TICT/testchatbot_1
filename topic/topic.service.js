@@ -8,7 +8,6 @@ var Topic = require('./topic.collection');
 
 mongoose.Promise = global.Promise;
 
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
