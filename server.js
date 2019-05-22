@@ -37,7 +37,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
 app.get('/', (req, res) => {
-  res.send("Home page. Server running okay.");
+  res.send("Server running okay");
 });
 
 app.get('/webhook', (req, res) => {

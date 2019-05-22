@@ -21,12 +21,12 @@ mongoose.Promise = global.Promise;
 //   extended: true
 // }));
 
-router.get('/', (req, res) =>{
+app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
 // exports.SendTopic = function (app) {
-  router.post('/topic', (req, res) => {
+  app.post('/topic', (req, res) => {
     Topic.create(req.body, (topic) => {
       res.send(topic); 
     });
