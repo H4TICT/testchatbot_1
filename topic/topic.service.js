@@ -9,7 +9,7 @@ const Topic = require('./topic.collection');
 mongoose.Promise = global.Promise;
 
 
-const SendTopic = router.post('/topic', async (req, res) => {
+app.post('/topic', async (req, res) => {
   try {
     const topic = await Topic.create(req.body);
     res.send(topic);
