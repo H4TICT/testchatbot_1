@@ -1,15 +1,15 @@
-var express = require('express');
-// var app = express();
-var router = express.Router();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+const express = require('express');
+// const app = express();
+const router = express.Router();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-var Topic = require('./topic.collection');
+const Topic = require('./topic.collection');
 
 mongoose.Promise = global.Promise;
 
 // module.exports = function (app) {
-router.post('/topic', async (req, res) => {
+const SendTopic = router.post('/topic', async (req, res) => {
   try {
     console.log(req.body);
     const topic = await Topic.create(req.body);
@@ -29,4 +29,4 @@ router.post('/topic', async (req, res) => {
 });
 // };
 
-module.exports = router;
+module.exports = SendTopic;
