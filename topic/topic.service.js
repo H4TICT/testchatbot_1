@@ -24,7 +24,7 @@ app.get('/', (req, res) =>{
 });
 
 exports.SendTopic = function(app){
-  app.post('/', function(req, res) {
+  app.post('/topic', function(req, res) {
     Topic.create(req.body, function(err, topic) {
       if(err) {
         res.send(err);

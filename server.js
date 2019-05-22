@@ -16,7 +16,7 @@ app.use('/user/user.conllection', User);
 app.use('/topic/tpic.conllection', Topic);
 app.use('/conversation/user.conllection', Conv);
 
-// import {SendTopic} from './topic/topic.service';
+import {SendTopic} from './topic/topic.service';
 
 
 
@@ -76,11 +76,10 @@ app.post('/webhook', (req, res) => {
 });
 
 
-  
 
 
 //handle Postback events
-const handlePostback = (psid, received_postback) => {
+const handlePostback = (psid, received_postback, app) => {
   let response;
   let payload = received_postback.payload;
   let topicname = received_postback.title;
@@ -89,21 +88,10 @@ const handlePostback = (psid, received_postback) => {
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(psid, response);
   } else {
-    // sendMessage(psid, psid + " choosed topic: " + topicname);
-    app.post('/topic', function(req, res) {
-      Topic.create(req.body, function SendTopic(err, topicname) {
-        if(err) {
-          res.send(err);
-        } else {
-          console.log(topicname);
-          res.send(topicname);
-          // res.send(psid);
-        }
-      });
-    });
+    sendMessage(psid, psid + " choosed topic: " + topicname);
+    SendTopic(app);
   }
 };
-
 
 //handles Messages events
 const handleMessage = (psid, received_message) => {
@@ -116,6 +104,7 @@ const handleMessage = (psid, received_message) => {
   }
   callSendAPI(psid, response);
 };
+
 
 //return topic list 
 const askTemplate = (text) => {
