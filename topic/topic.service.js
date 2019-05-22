@@ -23,8 +23,8 @@ app.get('/', (req, res) =>{
     res.send('Welcome to homepage');
 });
 
-app.post('/topic', function(req, res) {
-  Topic.create(req.body, function(err, topic) {
+app.post('/topic', (req, res) => {
+  Topic.create(req.body, (err, topic) => {
     if(err) {
       res.send(err);
     } else {

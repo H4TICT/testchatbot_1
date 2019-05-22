@@ -81,8 +81,8 @@ app.post('/webhook', (req, res) => {
   };
 });
 
-app.post('/topic', function(req, res) {
-  Topic.create(req.body, function(err, topic) {
+app.post('/topic', (req, res) => {
+  Topic.create(req.body, (err, topic) => {
     if(err) {
       res.send(err);
     } else {
@@ -94,7 +94,7 @@ app.post('/topic', function(req, res) {
 
 
 //handle Postback events
-const handlePostback = (psid, received_postback, router) => {
+const handlePostback = (psid, received_postback) => {
   let response;
   let payload = received_postback.payload;
   let topicname = received_postback.title;
