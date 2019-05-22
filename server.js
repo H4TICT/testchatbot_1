@@ -13,12 +13,11 @@ const Topic = require('./topic/topic.collection');
 const Conv = require('./conv/conv.collection');
 
 
-// const SendTopic = require('./topic/topic.service');
+const SendTopic = require('./topic/topic.service');
 
-// app.use('/topic', SendTopic);
+app.use('/topic', SendTopic);
 // SendTopic(app);
- import {SendTopic} from './topic/topic.service';
-SendTopic;
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
