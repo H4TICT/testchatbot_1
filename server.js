@@ -12,12 +12,14 @@ var User = require('./user/user.collection');
 var Topic = require('./topic/topic.collection');
 var Conv = require('./conv/conv.collection');
 
+
+const topic = require('./topic/topic.service');
+
 app.use('/user/user.conllection', User);
-app.use('/topic/tpic.conllection', Topic);
+app.use('/topic/tpic.conllection', topic);
 app.use('/conversation/user.conllection', Conv);
 
-import {SendTopic} from './topic/topic.service';
-import router from './topic/topic.service';
+
 
 
 app.use(logger('dev'));
