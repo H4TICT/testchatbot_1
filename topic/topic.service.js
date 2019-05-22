@@ -8,13 +8,21 @@ var Topic = require('./topic.collection');
 
 mongoose.Promise = global.Promise;
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 module.exports = function (app) {
   app.post('/topic', (req, res) => {
     Topic.create(req.body, (err, topic) => {
-      
+      if(err) {
+        res.send(err);
+      } else {
         console.log(topic);
         res.send(topic);
-      
+      }
     });
   });
 };
