@@ -21,7 +21,7 @@ mongoose.Promise = global.Promise;
 // });
 
 
-const SendTopic = app.post('/topic', (req, res) => {
+const SendTopic = router.post('/topic', (req, res) => {
   Topic.create(req.body, (err, topic) => {
     if (err) {
       res.send(err);
