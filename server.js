@@ -80,7 +80,8 @@ app.post('/webhook', (req, res) => {
 });
 
 
-const SendTopic = app.post('/topic', async (req, res) => {
+function SendTopic(){
+  app.post('/topic', async (req, res) => {
   try {
     const topic = await Topic.create(req.body);
     res.send(topic);
@@ -90,7 +91,7 @@ const SendTopic = app.post('/topic', async (req, res) => {
     res.status(500).send(err);
   }
 });
-
+};
 
 //handle Postback events
 const handlePostback = (psid, received_postback) => {
