@@ -18,7 +18,7 @@ var SendTopic = require('./topic/topic.service');
 // app.use('/user/user.conllection', User);
 // app.use('/topic/topic.service', topic);
 // app.use('/conversation/user.conllection', Conv);
-app.use('/', SendTopic);
+app.use('/topic', SendTopic);
 
 
 
