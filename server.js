@@ -17,7 +17,7 @@ app.use('/topic/tpic.conllection', Topic);
 app.use('/conversation/user.conllection', Conv);
 
 import {SendTopic} from './topic/topic.service';
-
+import router from './topic/topic.service';
 
 
 app.use(logger('dev'));
@@ -79,7 +79,7 @@ app.post('/webhook', (req, res) => {
 
 
 //handle Postback events
-const handlePostback = (psid, received_postback, app) => {
+const handlePostback = (psid, received_postback, router) => {
   let response;
   let payload = received_postback.payload;
   let topicname = received_postback.title;
@@ -89,7 +89,7 @@ const handlePostback = (psid, received_postback, app) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + " choosed topic: " + topicname);
-    SendTopic(app);
+    SendTopic(router);
   }
 };
 
