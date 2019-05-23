@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var TopicSchema = new Schema ({
+const TopicSchema = new Schema ({
     topicid: {
         type: Number
         // primary: true, 
@@ -9,9 +9,12 @@ var TopicSchema = new Schema ({
     },
     psid: {
         type: Number
+        // unique: true
+
     },
     topicname: {
         type: String
+        // unique: true
     }
 });
 

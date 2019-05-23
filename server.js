@@ -12,17 +12,15 @@ const User = require('./user/user.collection');
 const Topic = require('./topic/topic.collection');
 const Conv = require('./conv/conv.collection');
 
-
+//get SendTopic route
 const SendTopic = require('./topic/topic.service');
-
 app.use('/topic', SendTopic);
-// SendTopic(app);
 
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }));
 
 
@@ -77,20 +75,6 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
   };
 });
-
-
-// function SendTopic(){
-//   app.post('/topic', async (req, res) => {
-//   try {
-//     const topic = await Topic.create(req.body);
-//     res.send(topic);
-//     console.log('topic: '+topic);
-//   }
-//   catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
-// };
 
 //handle Postback events
 const handlePostback = (psid, received_postback) => {
