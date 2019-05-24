@@ -1,39 +1,46 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose'); 
-var bodyParser = require('body-parser');
-var router = express.Router();
+const express = require('express');
+const app = express();
+const router = express.Router();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-// var http = require('http');
-// var server = http.createServer(app);
-// var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-// mongoose.connect(db);
+const User = require('./user.collection');
 
-var User = require('./user.collection');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 mongoose.Promise = global.Promise;
 
-// app.use(bodyParser.urlencoded({
-//   extended: false
-// }));
-
-
-
-app.post('/user', function(req, res) {
-  User.create(req.body, function(err, user) {
-    if(err) {
-      res.send(err);
-    } else {
-      console.log(user);
-      res.send(user);
-    }
-  });
+app.get('/', (req, res) => {
+  res.send("This is User Page");
 });
 
 
+// POST User route
+app.post('/', async (req, res) => {
+  try {
+    const user = await User.create(req.body);
+    res.send(user);
+    cosole.log('user: '+ req.body);
+  }
+  catch (err) {
+    res.status(500).send(err);
+  } 
+});
 
-// module.exports = router;
-  // app.set('port', process.env.PORT || 8080);
-  // app.set('ip', process.env.IP || "0.0.0.0");
 
-  // server.listen(app.get('port'), app.get('ip'));
+//GET all users
+app.get('/users', async (req, res) => {
+  try {
+    const getUsers = await User.find({});
+    res.json(getUsers);
+  }
+  catch (err) {
+    res.status(500).send(err);
+  }
+})
+
+module.exports = app;
+

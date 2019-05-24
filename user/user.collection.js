@@ -2,20 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema ({
-    UID: {
-        type: Number,
-        required: true,
-        primary: true, 
-        unique: true
+    psid: {
+        type: Number
+        // required: true, 
+        // unique: true
     },
-    PSID: {
-        type: Number, 
-        required: true, 
-        unique: true
-    },
-    Role: {
+    role: {
         type: String, 
-        required: true
+        // required: true
     }
 });
 

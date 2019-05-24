@@ -1,36 +1,32 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose'); 
-var bodyParser = require('body-parser');
-// var router = express.Router();
+const express = require('express');
+const app = express();
+const router = express.Router();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-// var http = require('http');
-// var server = http.createServer(app);
-// var db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-// mongoose.connect(db);
+const Conv = require('./conv.collection');
 
-var Conv = require('./conv.collection');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 mongoose.Promise = global.Promise;
 
-// app.use(bodyParser.urlencoded({
-//   extended: false
-// }));
-
-
-app.post('/conv', function sendConv(req, res) {
-  Conv.create(req.body, (err, conv) => {
-    if(err) {     
-      res.send('error: ' + err);
-    } else {
-      console.log(conv);
-      res.send(conv);
-    }
-  });
+app.get('/', (req, res) => {
+  res.send("This is Conversation Page");
 });
 
-  // module.exports = router;
-  // app.set('port', process.env.PORT || 8080);
-  // app.set('ip', process.env.IP || "0.0.0.0");
+// send Conversation route
+app.post('/', async (req, res) => {
+  try {
+    const conv = await Conv.create(req.body);
+    res.send(conv);
+    cosole.log('conv: '+ conv);
+  }
+  catch (err) {
+    res.status(500).send(err);
+  } 
+});
 
-  // server.listen(app.get('port'), app.get('ip'));
+module.exports = app;

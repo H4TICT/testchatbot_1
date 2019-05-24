@@ -8,14 +8,19 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 
+//require Schema
 const User = require('./user/user.collection');
 const Topic = require('./topic/topic.collection');
 const Conv = require('./conv/conv.collection');
 
-//get SendTopic route
-const SendTopic = require('./topic/topic.service');
-app.use('/topic', SendTopic);
+//require all routes
+const topicRoute = require('./topic/topic.service');
+const userRoute = require('./user/user.service');
+const sendRoute = require('./conv/conv.service');
 
+app.use('/topic', topicRoute);
+app.use('/conv', sendRoute);
+app.use('/user', userRoute);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -25,8 +30,8 @@ app.use(bodyParser.urlencoded({
 
 
 //database url
-const db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
-// const db = 'mongodb://localhost:27017/freechat';
+// const db = 'mongodb+srv://tuanha1709:Hatuan1997hd@freechatdbtest-uy890.mongodb.net/test?retryWrites=true';
+const db = 'mongodb://localhost:27017/freechat';
 
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
@@ -36,6 +41,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/webhook', (req, res) => {
+
   let VERIFY_TOKEN = "randomToken";
 
   let mode = req.query['hub.mode'];
@@ -62,7 +68,6 @@ app.post('/webhook', (req, res) => {
       console.log(webhook_event);
 
       let psid = webhook_event.sender.id;
-      // console.log('Sender PSID: ' + psid);
 
       if (webhook_event.message) {
         handleMessage(psid, webhook_event.message);
@@ -77,16 +82,28 @@ app.post('/webhook', (req, res) => {
 });
 
 //handle Postback events
-const handlePostback = (psid, received_postback) => {
+const handlePostback = (psid, received_postback, request_body) => {
   let response;
   let payload = received_postback.payload;
   let topicname = received_postback.title;
+
+  const newUser = new User({
+    psid: psid,
+    role: 'Normal'
+  });
+
+  const newTopic = new Topic({
+    topicname: topicname,
+    psid: psid
+  });
 
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(psid, response);
   } else {
-    sendMessage(psid, psid + " choosed topic: " + topicname);
+    sendMessage(psid, psid + ' choosed topic: ' + topicname);
+    // newUser.save().then(user => res.json(user));
+    // newTopic.save().then(topic => res.json(topic));
   }
 };
 
@@ -133,11 +150,11 @@ const askTemplate = (text) => {
   }
 };
 
-function callSendAPI(psid, response, cb = null) {
+function callSendAPI(psid_send, response, cb = null) {
     // Construct the message body
     let request_body = {
         "recipient": {
-            "id": psid
+            "id": psid_send
         },
         "message": response
     };
@@ -157,10 +174,12 @@ function callSendAPI(psid, response, cb = null) {
           console.error("Unable to send message:" + err);
       }
     });
+  
+
 };
 
 
-function sendMessage(psid, message, cb = null) {
+function sendMessage(psid_receive, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {

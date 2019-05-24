@@ -3,8 +3,8 @@ const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Topic = require('./topic.collection');
 
+const Topic = require('./topic.collection');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -13,12 +13,11 @@ app.use(bodyParser.urlencoded({
 
 mongoose.Promise = global.Promise;
 
-
 app.get('/', (req, res) => {
   res.send("This is Topic Page");
 });
 
-// const SendTopic = 
+// send Topic route
 app.post('/', async (req, res) => {
   try {
     const topic = await Topic.create(req.body);
