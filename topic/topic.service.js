@@ -13,20 +13,28 @@ app.use(bodyParser.urlencoded({
 
 mongoose.Promise = global.Promise;
 
-app.get('/', (req, res) => {
-  res.send("This is Topic Page");
-});
-
 // send Topic route
-app.post('/', async (req, res) => {
+app.post('/topic', async (req, res) => {
   try {
     const topic = await Topic.create(req.body);
     res.send(topic);
-    cosole.log('topic: '+ topic);
+    // console.log('topic: '+ topic);
   }
   catch (err) {
     res.status(500).send(err);
   } 
 });
+
+//GET all topic
+app.get('/topics', async (req, res) => {
+  try {
+    const getTopics = await Topic.find({});
+    res.json(getTopics);
+  }
+  catch (err) {
+    res.status(500).send(err);
+  }
+})
+
 
 module.exports = app;

@@ -16,12 +16,12 @@ const Conv = require('./conv/conv.collection');
 //require all routes
 const topicRoute = require('./topic/topic.service');
 const userRoute = require('./user/user.service');
-const sendRoute = require('./conv/conv.service');
+const convRoute = require('./conv/conv.service');
 
-app.use('/topic', topicRoute);
-app.use('/conv', sendRoute);
-app.use('/user', userRoute);
-
+app.use('/', topicRoute);
+app.use('/conv', convRoute);
+app.use('/', userRoute);
+;
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -82,7 +82,7 @@ app.post('/webhook', (req, res) => {
 });
 
 //handle Postback events
-const handlePostback = (psid, received_postback, request_body) => {
+const handlePostback = (psid, received_postback) => {
   let response;
   let payload = received_postback.payload;
   let topicname = received_postback.title;
@@ -97,13 +97,19 @@ const handlePostback = (psid, received_postback, request_body) => {
     psid: psid
   });
 
+
   if(payload === 'GET_STARTED'){
     response = askTemplate('Choose a topic below then we can find you a friend');
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + ' choosed topic: ' + topicname);
-    // newUser.save().then(user => res.json(user));
-    // newTopic.save().then(topic => res.json(topic));
+    newUser.save().then(user => {
+      newTopic.users = [user._id];
+      newTopic.save();
+    });
+    
+    
+    
   }
 };
 
@@ -137,7 +143,7 @@ const askTemplate = (text) => {
           {
               "type":"postback",
               "title":"Sports",
-              "payload":"SPORTS_TOPIC"
+              "payload":"SPORT_TOPIC"
           },
           {
             "type":"postback",
@@ -150,11 +156,11 @@ const askTemplate = (text) => {
   }
 };
 
-function callSendAPI(psid_send, response, cb = null) {
+function callSendAPI(psid, response, cb = null) {
     // Construct the message body
     let request_body = {
         "recipient": {
-            "id": psid_send
+            "id": psid
         },
         "message": response
     };
@@ -179,11 +185,11 @@ function callSendAPI(psid_send, response, cb = null) {
 };
 
 
-function sendMessage(psid_receive, message, cb = null) {
+function sendMessage(psid, message, cb = null) {
   let message_sent = {
     "messaging_type": "Response",
     "recipient": {
-      "id": "2281658205232297"
+      "id": '2281658205232297'
     },
     "message": {
       "text": message

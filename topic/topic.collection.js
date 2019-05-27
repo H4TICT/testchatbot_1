@@ -6,9 +6,11 @@ const TopicSchema = new Schema ({
         type: String
         // unique: true
     },
-    psid: {
-        type: Number
-    }  
+    users: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }  
+    ]
 });
 
 module.exports = mongoose.model('Topic', TopicSchema);

@@ -13,17 +13,12 @@ app.use(bodyParser.urlencoded({
 
 mongoose.Promise = global.Promise;
 
-app.get('/', (req, res) => {
-  res.send("This is User Page");
-});
-
-
 // POST User route
-app.post('/', async (req, res) => {
+app.post('/user', async (req, res) => {
   try {
     const user = await User.create(req.body);
     res.send(user);
-    cosole.log('user: '+ req.body);
+    // console.log('user: '+ req.body);
   }
   catch (err) {
     res.status(500).send(err);
