@@ -6,7 +6,7 @@ const TopicSchema = new Schema ({
         type: String
         // unique: true
     },
-    users: [{
+    user: [{
             type: Schema.Types.ObjectId,
             ref: 'User'
         }  
