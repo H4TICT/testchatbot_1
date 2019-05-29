@@ -36,6 +36,42 @@ const db = 'mongodb://localhost:27017/freechat';
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
+
+
+  // app.get('/topics/:topicname', async (req, res) => {
+  //   try{
+  //     const getOneTopic = await Topic.find({topicname: req.params.topicname})
+  //     .select('_id user topicname')
+  //     .populate('user', 'psid');
+  //     res.json(getOneTopic);
+  //     // console.log(getOneTopic);
+
+  //       const listUser = [];
+  //       const listPSID = [];
+  //       for (var i in getOneTopic){
+  //         listUser.push([i, getOneTopic[i]]);
+  //         const arrUser = getOneTopic[i].user;
+  //         listPSID.push(arrUser[0].psid);
+  //       }
+  //     return listPSID
+  //       // console.log(listPSID);
+  //       // var abcxyz = listPSID.splice(listPSID.indexOf('2798864433487491'),1);
+  //       var abc = listPSID.filter(listPSID => !'2798864433487491'.includes(listPSID));
+  //       // console.log(abc); 
+  //   }
+  //   catch (err) {
+  //     res.status(500).send(err);
+  //   }
+  // });
+
+
+
+
+
+
+
+
+
 app.get('/', (req, res) => {
   res.send("Server running okay");
 });
@@ -50,7 +86,7 @@ app.get('/webhook', (req, res) => {
 
   if (mode && token) {
       if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-          console.log('WEBHOOK_VERIFIED');
+          // console.log('WEBHOOK_VERIFIED');
           res.status(200).send(challenge);
       } else {
           res.sendStatus(403);
@@ -65,7 +101,7 @@ app.post('/webhook', (req, res) => {
   if (body.object === 'page') {
     body.entry.forEach(function(entry) {
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+      // console.log(webhook_event);
 
       let psid = webhook_event.sender.id;
 
@@ -103,13 +139,11 @@ const handlePostback = (psid, received_postback) => {
     callSendAPI(psid, response);
   } else {
     sendMessage(psid, psid + ' choosed topic: ' + topicname);
+    
     newUser.save().then(user => {
-      newTopic.users = [user._id];
+      newTopic.user = [user._id];
       newTopic.save();
-    });
-    
-    
-    
+    });    
   }
 };
 

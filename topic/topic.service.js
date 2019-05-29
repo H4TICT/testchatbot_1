@@ -31,23 +31,37 @@ app.get('/topics', async (req, res) => {
     .select("topicname users _id")
     .populate('user', 'psid');
     res.json(getTopics);
+
+    const listUser = [];
+      const listPSID = [];
+      for (var i in getTopics){
+        listUser.push([i, getTopics[i]]);
+        // console.log(getOneTopic[i]);
+        const arrUser = getTopics[i].user;
+        listPSID.push(arrUser[0].psid);
+      }
+      console.log(listPSID);
+      // var abcxyz = listPSID.splice(listPSID.indexOf('2798864433487491'),1);
+      var abc = listPSID.filter(listPSID => !'2798864433487491'.includes(listPSID));
+      // console.log(abc);
+
   }
   catch (err) {
     res.status(500).send(err);
   }
 });
 //get ONLY TOPIC NAME
-app.get('/topics', (req, res) => {
-    Topic.distinct('topicname')
-      .populate('user', 'psid')
-      .exec()
-      .then((topics) => {
-        res.json(topics);
-      })
-      .catch((err) => {
-        res.status(500).send(err);
-      });
-  });
+// app.get('/topics', (req, res) => {
+//     Topic.distinct('topicname')
+//       .populate('user', 'psid')
+//       .exec()
+//       .then((topics) => {
+//         res.json(topics);
+//       })
+//       .catch((err) => {
+//         res.status(500).send(err);
+//       });
+//   });
 
 //get all object with topic name
 // app.get('/topics/:topicname', async (req, res) => {
@@ -56,20 +70,25 @@ app.get('/topics', (req, res) => {
 //     .select('_id user topicname')
 //     .populate('user', 'psid');
 //     res.json(getOneTopic);
+//     // console.log(getOneTopic);
+
 //       const listUser = [];
 //       const listPSID = [];
 //       for (var i in getOneTopic){
 //         listUser.push([i, getOneTopic[i]]);
+//         // console.log(getOneTopic[i]);
 //         const arrUser = getOneTopic[i].user;
 //         listPSID.push(arrUser[0].psid);
 //       }
+//       console.log(listPSID);
 //       // var abcxyz = listPSID.splice(listPSID.indexOf('2798864433487491'),1);
-//       // console.log(abcxyz);
+//       var abc = listPSID.filter(listPSID => !'2798864433487491'.includes(listPSID));
+//       // console.log(abc);
 //   }
 //   catch (err) {
 //     res.status(500).send(err);
 //   }
 // });
 
+
 module.exports = app;
-// module.exports = listPSID;
