@@ -5,7 +5,7 @@
   "main": "server.js",
   "author": "TuanHA <tuan.ha@vmodev.com>",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
