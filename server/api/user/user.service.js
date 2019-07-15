@@ -13,9 +13,23 @@ const Conv = require('../conv/conv.collection');
 const MatchRequest = require('../matchingConv/matchRequest.collection');
 
 
-exports.createUser = async function (userParam) {
-  const newUser = new User(userParam);
-  return await newUser.save();
+exports.createUser = async function (psid, userParam) {
+  const getAllUser = await User.find({}).select('psid');
+  const listPSID = [];
+  
+  for (let i=0; i<getAllUser.length; i++) {
+    listPSID.push(getAllUser[i].psid);
+  }
+  console.log(' list psid test: ' + listPSID);
+  // console.log(listPSID);
+  const index = _.findKey(listPSID, (userItem) => { return userItem == psid });
+  console.log('check test index: ' + index);
+  if (!index) {
+    const newUser = new User(userParam);
+    return await newUser.save();
+  } else {
+    console.log('user existed');
+  }
 };
 
 // exports.updateCurrentTopic = async (topicname, psidcheck) => {
@@ -25,11 +39,11 @@ exports.createUser = async function (userParam) {
 // };
 
 exports.checkValidateUser = async (psid, topicParam) => {
-  const getUser = await User.find({}).select('psid');
+  const getAllUser = await User.find({}).select('psid');
   const listPSID = [];
   
-  for (var i in getUser) {
-    listPSID.push(getUser[i].psid);
+  for (var i in getAllUser) {
+    listPSID.push(getAllUser[i].psid);
   }
   // console.log(listPSID);
   const index = _.findKey(listPSID, (userItem) => { return userItem == psid });

@@ -158,7 +158,7 @@ const handlePostback = async (psid, received_postback) => {
         await [callFbAPI.sendMessage(psid, 'Use Menu under the textbox for more options!'),
         response = callOption.askTemplate('Choose a topic below then we can find you a friend:'),
         callFbAPI.callSendAPI(psid, response)];
-        await userService.createUser(userParam);
+        await userService.createUser(psid, userParam);
     } else if (payload === 'HELP_PAYLOAD') {
         await callFbAPI.sendMessage(psid, 'Do ... to ..., Do ... to ...!');
     } else if (payload === 'QUIT_PAYLOAD') {     
